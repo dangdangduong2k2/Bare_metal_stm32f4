@@ -41,6 +41,7 @@
 
 /* Exported types ------------------------------------------------------------*/
 
+
 #define IS_GPIO_ALL_PERIPH(PERIPH) (((PERIPH) == GPIOA) || \
                                     ((PERIPH) == GPIOB) || \
                                     ((PERIPH) == GPIOC) || \

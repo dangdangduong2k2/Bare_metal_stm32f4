@@ -1,429 +1,307 @@
 
-Discarded input sections
-
- .text          0x00000000       0xe4 ./output/main.o
- .data          0x00000000        0x0 ./output/main.o
- .bss           0x00000000        0x8 ./output/main.o
- .debug_info    0x00000000      0x2d7 ./output/main.o
- .debug_abbrev  0x00000000      0x153 ./output/main.o
- .debug_aranges
-                0x00000000       0x20 ./output/main.o
- .debug_line    0x00000000      0x221 ./output/main.o
- .debug_str     0x00000000      0x328 ./output/main.o
- .comment       0x00000000       0x46 ./output/main.o
- .debug_frame   0x00000000       0x2c ./output/main.o
- .text          0x00000000      0x250 ./output/system_stm32f4xx.o
- .data          0x00000000        0x4 ./output/system_stm32f4xx.o
- .bss           0x00000000        0x0 ./output/system_stm32f4xx.o
- .rodata        0x00000000       0x10 ./output/system_stm32f4xx.o
- .debug_info    0x00000000      0x5ad ./output/system_stm32f4xx.o
- .debug_abbrev  0x00000000      0x167 ./output/system_stm32f4xx.o
- .debug_aranges
-                0x00000000       0x20 ./output/system_stm32f4xx.o
- .debug_line    0x00000000      0x2c5 ./output/system_stm32f4xx.o
- .debug_str     0x00000000      0x362 ./output/system_stm32f4xx.o
- .comment       0x00000000       0x46 ./output/system_stm32f4xx.o
- .debug_frame   0x00000000       0x7c ./output/system_stm32f4xx.o
- .text          0x00000000       0x8c ./output/startup_Stm32f4.o
- .data          0x00000000        0x0 ./output/startup_Stm32f4.o
- .bss           0x00000000        0x0 ./output/startup_Stm32f4.o
- .isr_vector    0x00000000      0x188 ./output/startup_Stm32f4.o
- .debug_info    0x00000000      0x190 ./output/startup_Stm32f4.o
- .debug_abbrev  0x00000000      0x10e ./output/startup_Stm32f4.o
- .debug_aranges
-                0x00000000       0x20 ./output/startup_Stm32f4.o
- .debug_line    0x00000000      0x186 ./output/startup_Stm32f4.o
- .debug_str     0x00000000      0x1ad ./output/startup_Stm32f4.o
- .comment       0x00000000       0x46 ./output/startup_Stm32f4.o
- .debug_frame   0x00000000       0x4c ./output/startup_Stm32f4.o
+There are no discarded input sections
 
 Memory Configuration
 
 Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00080000         xr
+SRAM             0x20000000         0x00020000         xrw
 *default*        0x00000000         0xffffffff
 
 Linker script and memory map
 
-LOAD C:/arm-gnu-toolchain-13.3.rel1-mingw-w64-i686-arm-none-eabi/arm-none-eabi/lib/thumb/v6-m/nofp/libc.a
+
+.text           0x08000000     0x13f0
+ *(.isr_vector)
+ .isr_vector    0x08000000      0x188 ./output/startup_Stm32f4.o
+                0x08000000                g_pfnVectors
+ *(.text)
+ .text          0x08000188       0x4c ./output/main.o
+                0x08000188                main
+ .text          0x080001d4      0x478 ./output/stm32f4xx_gpio.o
+                0x080001d4                GPIO_DeInit
+                0x080002f4                GPIO_Init
+                0x08000410                GPIO_StructInit
+                0x08000442                GPIO_PinLockConfig
+                0x08000484                GPIO_ReadInputDataBit
+                0x080004b6                GPIO_ReadInputData
+                0x080004ce                GPIO_ReadOutputDataBit
+                0x08000500                GPIO_ReadOutputData
+                0x08000518                GPIO_SetBits
+                0x08000534                GPIO_ResetBits
+                0x08000550                GPIO_WriteBit
+                0x0800057e                GPIO_Write
+                0x0800059a                GPIO_ToggleBits
+                0x080005bc                GPIO_PinAFConfig
+ .text          0x0800064c      0xaa8 ./output/stm32f4xx_rcc.o
+                0x0800064c                RCC_DeInit
+                0x080006a8                RCC_HSEConfig
+                0x080006cc                RCC_WaitForHSEStartUp
+                0x0800071c                RCC_AdjustHSICalibrationValue
+                0x08000758                RCC_HSICmd
+                0x08000778                RCC_LSEConfig
+                0x080007b8                RCC_LSICmd
+                0x080007d8                RCC_PLLConfig
+                0x08000814                RCC_PLLCmd
+                0x08000834                RCC_PLLI2SConfig
+                0x0800085c                RCC_PLLI2SCmd
+                0x0800087c                RCC_ClockSecuritySystemCmd
+                0x0800089c                RCC_MCO1Config
+                0x080008d8                RCC_MCO2Config
+                0x08000914                RCC_SYSCLKConfig
+                0x0800094c                RCC_GetSYSCLKSource
+                0x08000968                RCC_HCLKConfig
+                0x080009a0                RCC_PCLK1Config
+                0x080009d8                RCC_PCLK2Config
+                0x08000a10                RCC_GetClocksFreq
+                0x08000b6c                RCC_RTCCLKConfig
+                0x08000bc8                RCC_RTCCLKCmd
+                0x08000be8                RCC_BackupResetCmd
+                0x08000c08                RCC_I2SCLKConfig
+                0x08000c24                RCC_TIMCLKPresConfig
+                0x08000c40                RCC_AHB1PeriphClockCmd
+                0x08000c7c                RCC_AHB2PeriphClockCmd
+                0x08000cb8                RCC_AHB3PeriphClockCmd
+                0x08000cf4                RCC_APB1PeriphClockCmd
+                0x08000d30                RCC_APB2PeriphClockCmd
+                0x08000d6c                RCC_AHB1PeriphResetCmd
+                0x08000da8                RCC_AHB2PeriphResetCmd
+                0x08000de4                RCC_AHB3PeriphResetCmd
+                0x08000e20                RCC_APB1PeriphResetCmd
+                0x08000e5c                RCC_APB2PeriphResetCmd
+                0x08000e98                RCC_AHB1PeriphClockLPModeCmd
+                0x08000ed4                RCC_AHB2PeriphClockLPModeCmd
+                0x08000f10                RCC_AHB3PeriphClockLPModeCmd
+                0x08000f4c                RCC_APB1PeriphClockLPModeCmd
+                0x08000f88                RCC_APB2PeriphClockLPModeCmd
+                0x08000fc4                RCC_ITConfig
+                0x08001010                RCC_GetFlagStatus
+                0x08001084                RCC_ClearFlag
+                0x080010a0                RCC_GetITStatus
+                0x080010d4                RCC_ClearITPendingBit
+ .text          0x080010f4      0x250 ./output/system_stm32f4xx.o
+                0x080010f4                SystemInit
+                0x08001150                SystemCoreClockUpdate
+ .text          0x08001344       0x8c ./output/startup_Stm32f4.o
+                0x08001344                Reset_Handler
+                0x080013c8                HASH_RNG_IRQHandler
+                0x080013c8                EXTI2_IRQHandler
+                0x080013c8                TIM8_CC_IRQHandler
+                0x080013c8                DebugMon_Handler
+                0x080013c8                TIM1_CC_IRQHandler
+                0x080013c8                DMA2_Stream5_IRQHandler
+                0x080013c8                HardFault_Handler
+                0x080013c8                DMA1_Stream5_IRQHandler
+                0x080013c8                SysTick_Handler
+                0x080013c8                PVD_IRQHandler
+                0x080013c8                SDIO_IRQHandler
+                0x080013c8                TAMP_STAMP_IRQHandler
+                0x080013c8                PendSV_Handler
+                0x080013c8                NMI_Handler
+                0x080013c8                CAN2_RX1_IRQHandler
+                0x080013c8                EXTI3_IRQHandler
+                0x080013c8                TIM8_TRG_COM_TIM14_IRQHandler
+                0x080013c8                TIM1_UP_TIM10_IRQHandler
+                0x080013c8                TIM8_UP_TIM13_IRQHandler
+                0x080013c8                I2C3_ER_IRQHandler
+                0x080013c8                EXTI0_IRQHandler
+                0x080013c8                I2C2_EV_IRQHandler
+                0x080013c8                DMA1_Stream2_IRQHandler
+                0x080013c8                CAN1_RX0_IRQHandler
+                0x080013c8                FPU_IRQHandler
+                0x080013c8                OTG_HS_WKUP_IRQHandler
+                0x080013c8                Defualt_Handle
+                0x080013c8                UsageFault_Handler
+                0x080013c8                CAN2_SCE_IRQHandler
+                0x080013c8                DMA2_Stream2_IRQHandler
+                0x080013c8                SPI1_IRQHandler
+                0x080013c8                TIM6_DAC_IRQHandler
+                0x080013c8                TIM1_BRK_TIM9_IRQHandler
+                0x080013c8                DCMI_IRQHandler
+                0x080013c8                CAN2_RX0_IRQHandler
+                0x080013c8                DMA2_Stream3_IRQHandler
+                0x080013c8                USART6_IRQHandler
+                0x080013c8                USART3_IRQHandler
+                0x080013c8                CRYP_IRQHandler
+                0x080013c8                RTC_Alarm_IRQHandler
+                0x080013c8                CAN1_RX1_IRQHandler
+                0x080013c8                UART5_IRQHandler
+                0x080013c8                DMA2_Stream0_IRQHandler
+                0x080013c8                TIM4_IRQHandler
+                0x080013c8                I2C1_EV_IRQHandler
+                0x080013c8                DMA1_Stream6_IRQHandler
+                0x080013c8                DMA1_Stream1_IRQHandler
+                0x080013c8                UART4_IRQHandler
+                0x080013c8                TIM3_IRQHandler
+                0x080013c8                RCC_IRQHandler
+                0x080013c8                TIM8_BRK_TIM12_IRQHandler
+                0x080013c8                EXTI15_10_IRQHandler
+                0x080013c8                ADC_IRQHandler
+                0x080013c8                DMA1_Stream7_IRQHandler
+                0x080013c8                TIM7_IRQHandler
+                0x080013c8                CAN2_TX_IRQHandler
+                0x080013c8                TIM5_IRQHandler
+                0x080013c8                DMA2_Stream7_IRQHandler
+                0x080013c8                I2C3_EV_IRQHandler
+                0x080013c8                EXTI9_5_IRQHandler
+                0x080013c8                RTC_WKUP_IRQHandler
+                0x080013c8                ETH_WKUP_IRQHandler
+                0x080013c8                SPI2_IRQHandler
+                0x080013c8                OTG_HS_EP1_IN_IRQHandler
+                0x080013c8                MemManage_Handler
+                0x080013c8                DMA1_Stream0_IRQHandler
+                0x080013c8                CAN1_TX_IRQHandler
+                0x080013c8                SVC_Handler
+                0x080013c8                EXTI4_IRQHandler
+                0x080013c8                FSMC_IRQHandler
+                0x080013c8                ETH_IRQHandler
+                0x080013c8                OTG_HS_EP1_OUT_IRQHandler
+                0x080013c8                WWDG_IRQHandler
+                0x080013c8                TIM2_IRQHandler
+                0x080013c8                OTG_FS_WKUP_IRQHandler
+                0x080013c8                TIM1_TRG_COM_TIM11_IRQHandler
+                0x080013c8                OTG_HS_IRQHandler
+                0x080013c8                EXTI1_IRQHandler
+                0x080013c8                USART2_IRQHandler
+                0x080013c8                I2C2_ER_IRQHandler
+                0x080013c8                DMA2_Stream1_IRQHandler
+                0x080013c8                CAN1_SCE_IRQHandler
+                0x080013c8                FLASH_IRQHandler
+                0x080013c8                DMA2_Stream4_IRQHandler
+                0x080013c8                BusFault_Handler
+                0x080013c8                USART1_IRQHandler
+                0x080013c8                OTG_FS_IRQHandler
+                0x080013c8                SPI3_IRQHandler
+                0x080013c8                DMA1_Stream4_IRQHandler
+                0x080013c8                I2C1_ER_IRQHandler
+                0x080013c8                DMA2_Stream6_IRQHandler
+                0x080013c8                DMA1_Stream3_IRQHandler
+ *(.rodata)
+ .rodata        0x080013d0       0x10 ./output/stm32f4xx_rcc.o
+ .rodata        0x080013e0       0x10 ./output/system_stm32f4xx.o
+                0x080013e0                AHBPrescTable
+                0x080013f0                        . = ALIGN (0x4)
+                0x080013f0                        _etext = .
+                [0x00000000]                      _la_data = LOADADDR (.data)
+
+.glue_7         0x080013f0        0x0
+ .glue_7        0x080013f0        0x0 linker stubs
+
+.glue_7t        0x080013f0        0x0
+ .glue_7t       0x080013f0        0x0 linker stubs
+
+.vfp11_veneer   0x080013f0        0x0
+ .vfp11_veneer  0x080013f0        0x0 linker stubs
+
+.v4_bx          0x080013f0        0x0
+ .v4_bx         0x080013f0        0x0 linker stubs
+
+.iplt           0x080013f0        0x0
+ .iplt          0x080013f0        0x0 ./output/main.o
+
+.rel.dyn        0x080013f0        0x0
+ .rel.iplt      0x080013f0        0x0 ./output/main.o
+
+.data           0x20000000        0x4 load address 0x00000000
+                0x20000000                        _sdata = .
+ *(.data)
+ .data          0x20000000        0x0 ./output/main.o
+ .data          0x20000000        0x0 ./output/stm32f4xx_gpio.o
+ .data          0x20000000        0x0 ./output/stm32f4xx_rcc.o
+ .data          0x20000000        0x4 ./output/system_stm32f4xx.o
+                0x20000000                SystemCoreClock
+ .data          0x20000004        0x0 ./output/startup_Stm32f4.o
+                0x20000004                        . = ALIGN (0x4)
+                0x20000004                        _edata = .
+
+.igot.plt       0x20000004        0x0 load address 0x00000004
+ .igot.plt      0x20000004        0x0 ./output/main.o
+
+.bss            0x20000004        0x8 load address 0x00000004
+                0x20000004                        _sbss = .
+ *(.bss)
+ .bss           0x20000004        0x8 ./output/main.o
+                0x20000004                GPIO_InitStructure
+ .bss           0x2000000c        0x0 ./output/stm32f4xx_gpio.o
+ .bss           0x2000000c        0x0 ./output/stm32f4xx_rcc.o
+ .bss           0x2000000c        0x0 ./output/system_stm32f4xx.o
+ .bss           0x2000000c        0x0 ./output/startup_Stm32f4.o
+ *(COMMON)
+                0x2000000c                        . = ALIGN (0x4)
+                0x2000000c                        _ebss = .
 LOAD ./output/main.o
+LOAD ./output/stm32f4xx_gpio.o
+LOAD ./output/stm32f4xx_rcc.o
 LOAD ./output/system_stm32f4xx.o
 LOAD ./output/startup_Stm32f4.o
-                [!provide]                        PROVIDE (__executable_start = SEGMENT_START ("text-segment", 0x8000))
-                0x00008000                        . = SEGMENT_START ("text-segment", 0x8000)
-
-.interp
- *(.interp)
-
-.note.gnu.build-id
- *(.note.gnu.build-id)
-
-.hash
- *(.hash)
-
-.gnu.hash
- *(.gnu.hash)
-
-.dynsym
- *(.dynsym)
-
-.dynstr
- *(.dynstr)
-
-.gnu.version
- *(.gnu.version)
-
-.gnu.version_d
- *(.gnu.version_d)
-
-.gnu.version_r
- *(.gnu.version_r)
-
-.rel.dyn        0x00008000        0x0
- *(.rel.init)
- *(.rel.text .rel.text.* .rel.gnu.linkonce.t.*)
- *(.rel.fini)
- *(.rel.rodata .rel.rodata.* .rel.gnu.linkonce.r.*)
- *(.rel.data.rel.ro .rel.data.rel.ro.* .rel.gnu.linkonce.d.rel.ro.*)
- *(.rel.data .rel.data.* .rel.gnu.linkonce.d.*)
- *(.rel.tdata .rel.tdata.* .rel.gnu.linkonce.td.*)
- *(.rel.tbss .rel.tbss.* .rel.gnu.linkonce.tb.*)
- *(.rel.ctors)
- *(.rel.dtors)
- *(.rel.got)
- *(.rel.bss .rel.bss.* .rel.gnu.linkonce.b.*)
-                [!provide]                        PROVIDE (__rel_iplt_start = .)
- *(.rel.iplt)
-                [!provide]                        PROVIDE (__rel_iplt_end = .)
-
-.rela.dyn       0x00008000        0x0
- *(.rela.init)
- *(.rela.text .rela.text.* .rela.gnu.linkonce.t.*)
- *(.rela.fini)
- *(.rela.rodata .rela.rodata.* .rela.gnu.linkonce.r.*)
- *(.rela.data .rela.data.* .rela.gnu.linkonce.d.*)
- *(.rela.tdata .rela.tdata.* .rela.gnu.linkonce.td.*)
- *(.rela.tbss .rela.tbss.* .rela.gnu.linkonce.tb.*)
- *(.rela.ctors)
- *(.rela.dtors)
- *(.rela.got)
- *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
-                [!provide]                        PROVIDE (__rela_iplt_start = .)
- *(.rela.iplt)
-                [!provide]                        PROVIDE (__rela_iplt_end = .)
-
-.rel.plt
- *(.rel.plt)
-
-.rela.plt
- *(.rela.plt)
-
-.init
- *(SORT_NONE(.init))
-
-.plt
- *(.plt)
-
-.iplt
- *(.iplt)
-
-.gnu.sgstubs
- *(.gnu.sgstubs*)
-
-.text           0x00008000        0x0
- *(.text.unlikely .text.*_unlikely .text.unlikely.*)
- *(.text.exit .text.exit.*)
- *(.text.startup .text.startup.*)
- *(.text.hot .text.hot.*)
- *(SORT_BY_NAME(.text.sorted.*))
- *(.text .stub .text.* .gnu.linkonce.t.*)
- *(.gnu.warning)
- *(.glue_7t)
- .glue_7t       0x00008000        0x0 linker stubs
- *(.glue_7)
- .glue_7        0x00008000        0x0 linker stubs
- *(.vfp11_veneer)
- .vfp11_veneer  0x00008000        0x0 linker stubs
- *(.v4_bx)
- .v4_bx         0x00008000        0x0 linker stubs
-
-.fini
- *(SORT_NONE(.fini))
-                [!provide]                        PROVIDE (__etext = .)
-                [!provide]                        PROVIDE (_etext = .)
-                [!provide]                        PROVIDE (etext = .)
-
-.rodata
- *(.rodata .rodata.* .gnu.linkonce.r.*)
-
-.rodata1
- *(.rodata1)
-
-.ARM.extab
- *(.ARM.extab* .gnu.linkonce.armextab.*)
-
-.ARM.exidx      0x00008000        0x0
-                [!provide]                        PROVIDE (__exidx_start = .)
- *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                [!provide]                        PROVIDE (__exidx_end = .)
-
-.eh_frame_hdr
- *(.eh_frame_hdr)
- *(.eh_frame_entry .eh_frame_entry.*)
-
-.eh_frame
- *(.eh_frame)
- *(.eh_frame.*)
-
-.sframe
- *(.sframe)
- *(.sframe.*)
-
-.gcc_except_table
- *(.gcc_except_table .gcc_except_table.*)
-
-.gnu_extab
- *(.gnu_extab*)
-
-.exception_ranges
- *(.exception_ranges*)
-                0x00008000                        . = (ALIGN (CONSTANT (MAXPAGESIZE)) + (. & (CONSTANT (MAXPAGESIZE) - 0x1)))
-
-.eh_frame
- *(.eh_frame)
- *(.eh_frame.*)
-
-.sframe
- *(.sframe)
- *(.sframe.*)
-
-.gnu_extab
- *(.gnu_extab)
-
-.gcc_except_table
- *(.gcc_except_table .gcc_except_table.*)
-
-.exception_ranges
- *(.exception_ranges*)
-
-.tdata          0x00008000        0x0
-                [!provide]                        PROVIDE (__tdata_start = .)
- *(.tdata .tdata.* .gnu.linkonce.td.*)
-
-.tbss
- *(.tbss .tbss.* .gnu.linkonce.tb.*)
- *(.tcommon)
-
-.preinit_array  0x00008000        0x0
-                [!provide]                        PROVIDE (__preinit_array_start = .)
- *(.preinit_array)
-                [!provide]                        PROVIDE (__preinit_array_end = .)
-
-.init_array     0x00008000        0x0
-                [!provide]                        PROVIDE (__init_array_start = .)
- *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
- *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
-                [!provide]                        PROVIDE (__init_array_end = .)
-
-.fini_array     0x00008000        0x0
-                [!provide]                        PROVIDE (__fini_array_start = .)
- *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
- *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
-                [!provide]                        PROVIDE (__fini_array_end = .)
-
-.ctors
- *crtbegin.o(.ctors)
- *crtbegin?.o(.ctors)
- *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
- *(SORT_BY_NAME(.ctors.*))
- *(.ctors)
-
-.dtors
- *crtbegin.o(.dtors)
- *crtbegin?.o(.dtors)
- *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
- *(SORT_BY_NAME(.dtors.*))
- *(.dtors)
-
-.jcr
- *(.jcr)
-
-.data.rel.ro
- *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*)
- *(.data.rel.ro .data.rel.ro.* .gnu.linkonce.d.rel.ro.*)
-
-.dynamic
- *(.dynamic)
-
-.got
- *(.got.plt)
- *(.igot.plt)
- *(.got)
- *(.igot)
-
-.data           0x00008000        0x0
-                0x00008000                        __data_start = .
- *(.data .data.* .gnu.linkonce.d.*)
-
-.data1
- *(.data1)
-                0x00008000                        _edata = .
-                [!provide]                        PROVIDE (edata = .)
-
-.persistent     0x00008000        0x0
-                [!provide]                        PROVIDE (__persistent_start = .)
- *(.persistent .persistent.* .gnu.linkonce.p.*)
-                0x00008000                        . = ALIGN (0x4)
-                [!provide]                        PROVIDE (__persistent_end = .)
-                0x00008000                        . = ALIGN (ALIGNOF (NEXT_SECTION))
-                0x00008000                        __bss_start = .
-                0x00008000                        __bss_start__ = .
-
-.bss            0x00008000        0x0
- *(.dynbss)
- *(.bss .bss.* .gnu.linkonce.b.*)
- *(COMMON)
-                0x00008000                        . = ALIGN ((. != 0x0)?0x4:0x1)
-                0x00008000                        _bss_end__ = .
-                0x00008000                        __bss_end__ = .
-
-.noinit         0x00008000        0x0
-                [!provide]                        PROVIDE (__noinit_start = .)
- *(.noinit .noinit.* .gnu.linkonce.n.*)
-                0x00008000                        . = ALIGN (0x4)
-                [!provide]                        PROVIDE (__noinit_end = .)
-                0x00008000                        . = ALIGN (0x4)
-                0x00008000                        . = SEGMENT_START ("ldata-segment", .)
-                0x00008000                        . = ALIGN (0x4)
-                0x00008000                        __end__ = .
-                0x00008000                        _end = .
-                [!provide]                        PROVIDE (end = .)
-
-.stack          0x00080000        0x0
-                0x00080000                        _stack = .
- *(.stack)
-
-.stab
- *(.stab)
-
-.stabstr
- *(.stabstr)
-
-.stab.excl
- *(.stab.excl)
-
-.stab.exclstr
- *(.stab.exclstr)
-
-.stab.index
- *(.stab.index)
-
-.stab.indexstr
- *(.stab.indexstr)
-
-.comment
- *(.comment)
-
-.gnu.build.attributes
- *(.gnu.build.attributes .gnu.build.attributes.*)
-
-.debug
- *(.debug)
-
-.line
- *(.line)
-
-.debug_srcinfo
- *(.debug_srcinfo)
-
-.debug_sfnames
- *(.debug_sfnames)
-
-.debug_aranges
- *(.debug_aranges)
-
-.debug_pubnames
- *(.debug_pubnames)
-
-.debug_info
- *(.debug_info .gnu.linkonce.wi.*)
-
-.debug_abbrev
- *(.debug_abbrev)
-
-.debug_line
- *(.debug_line .debug_line.* .debug_line_end)
-
-.debug_frame
- *(.debug_frame)
-
-.debug_str
- *(.debug_str)
-
-.debug_loc
- *(.debug_loc)
-
-.debug_macinfo
- *(.debug_macinfo)
-
-.debug_weaknames
- *(.debug_weaknames)
-
-.debug_funcnames
- *(.debug_funcnames)
-
-.debug_typenames
- *(.debug_typenames)
-
-.debug_varnames
- *(.debug_varnames)
-
-.debug_pubtypes
- *(.debug_pubtypes)
-
-.debug_ranges
- *(.debug_ranges)
-
-.debug_addr
- *(.debug_addr)
-
-.debug_line_str
- *(.debug_line_str)
-
-.debug_loclists
- *(.debug_loclists)
-
-.debug_macro
- *(.debug_macro)
-
-.debug_names
- *(.debug_names)
-
-.debug_rnglists
- *(.debug_rnglists)
-
-.debug_str_offsets
- *(.debug_str_offsets)
-
-.debug_sup
- *(.debug_sup)
+OUTPUT(./output/stm32_f4.elf elf32-littlearm)
+LOAD linker stubs
+
+.debug_info     0x00000000     0x1c3c
+ .debug_info    0x00000000      0x2d7 ./output/main.o
+ .debug_info    0x000002d7      0x608 ./output/stm32f4xx_gpio.o
+ .debug_info    0x000008df      0xc20 ./output/stm32f4xx_rcc.o
+ .debug_info    0x000014ff      0x5ad ./output/system_stm32f4xx.o
+ .debug_info    0x00001aac      0x190 ./output/startup_Stm32f4.o
+
+.debug_abbrev   0x00000000      0x7bf
+ .debug_abbrev  0x00000000      0x153 ./output/main.o
+ .debug_abbrev  0x00000153      0x1ec ./output/stm32f4xx_gpio.o
+ .debug_abbrev  0x0000033f      0x20b ./output/stm32f4xx_rcc.o
+ .debug_abbrev  0x0000054a      0x167 ./output/system_stm32f4xx.o
+ .debug_abbrev  0x000006b1      0x10e ./output/startup_Stm32f4.o
+
+.debug_aranges  0x00000000       0xa0
+ .debug_aranges
+                0x00000000       0x20 ./output/main.o
+ .debug_aranges
+                0x00000020       0x20 ./output/stm32f4xx_gpio.o
+ .debug_aranges
+                0x00000040       0x20 ./output/stm32f4xx_rcc.o
+ .debug_aranges
+                0x00000060       0x20 ./output/system_stm32f4xx.o
+ .debug_aranges
+                0x00000080       0x20 ./output/startup_Stm32f4.o
+
+.debug_line     0x00000000     0x102d
+ .debug_line    0x00000000      0x1ae ./output/main.o
+ .debug_line    0x000001ae      0x395 ./output/stm32f4xx_gpio.o
+ .debug_line    0x00000543      0x69f ./output/stm32f4xx_rcc.o
+ .debug_line    0x00000be2      0x2c5 ./output/system_stm32f4xx.o
+ .debug_line    0x00000ea7      0x186 ./output/startup_Stm32f4.o
+
+.debug_str      0x00000000      0xc57
+ .debug_str     0x00000000      0xc57 ./output/main.o
+                                0x328 (size before relaxing)
+ .debug_str     0x00000c57      0x47c ./output/stm32f4xx_gpio.o
+ .debug_str     0x00000c57      0x82b ./output/stm32f4xx_rcc.o
+ .debug_str     0x00000c57      0x362 ./output/system_stm32f4xx.o
+ .debug_str     0x00000c57      0x1ad ./output/startup_Stm32f4.o
+
+.comment        0x00000000       0x45
+ .comment       0x00000000       0x45 ./output/main.o
+                                 0x46 (size before relaxing)
+ .comment       0x00000045       0x46 ./output/stm32f4xx_gpio.o
+ .comment       0x00000045       0x46 ./output/stm32f4xx_rcc.o
+ .comment       0x00000045       0x46 ./output/system_stm32f4xx.o
+ .comment       0x00000045       0x46 ./output/startup_Stm32f4.o
 
 .ARM.attributes
                 0x00000000       0x2e
- *(.ARM.attributes)
  .ARM.attributes
                 0x00000000       0x2e ./output/main.o
  .ARM.attributes
-                0x0000002e       0x2e ./output/system_stm32f4xx.o
+                0x0000002e       0x2e ./output/stm32f4xx_gpio.o
  .ARM.attributes
-                0x0000005c       0x2e ./output/startup_Stm32f4.o
- *(.gnu.attributes)
+                0x0000005c       0x2e ./output/stm32f4xx_rcc.o
+ .ARM.attributes
+                0x0000008a       0x2e ./output/system_stm32f4xx.o
+ .ARM.attributes
+                0x000000b8       0x2e ./output/startup_Stm32f4.o
 
-.note.gnu.arm.ident
- *(.note.gnu.arm.ident)
-
-/DISCARD/
- *(.note.GNU-stack)
- *(.gnu_debuglink)
- *(.gnu.lto_*)
-OUTPUT(./output/stm32_f4.elf elf32-littlearm)
-LOAD linker stubs
+.debug_frame    0x00000000      0xa2c
+ .debug_frame   0x00000000       0x2c ./output/main.o
+ .debug_frame   0x0000002c      0x23c ./output/stm32f4xx_gpio.o
+ .debug_frame   0x00000268      0x6fc ./output/stm32f4xx_rcc.o
+ .debug_frame   0x00000964       0x7c ./output/system_stm32f4xx.o
+ .debug_frame   0x000009e0       0x4c ./output/startup_Stm32f4.o
