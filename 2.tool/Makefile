@@ -17,7 +17,7 @@ INC_FILES := $(foreach INC_DIR,$(INC_DIR),$(wildcard $(INC_DIR)/*.h))
 
 COMPILER_DIR := C:/arm-gnu-toolchain-13.3.rel1-mingw-w64-i686-arm-none-eabi
 
-LINKER = $(PRO_DIR)/1.linker/STM32F407VETx_FLASH.ld
+LINKER = $(PRO_DIR)/1.linker/linker_Stm32f4.ld
 
 CC := $(COMPILER_DIR)/bin/arm-none-eabi-gcc
 LD := $(COMPILER_DIR)/bin/arm-none-eabi-ld 

@@ -1,15 +1,20 @@
 #include <stdint.h>
 
+extern uint32_t  _etext;
+extern uint32_t  _sdata;
+extern uint32_t  _edata;
+extern uint32_t  _sbss;
+extern uint32_t  _ebss;
+extern uint32_t  _la_data;
 #define SRAM_START 0x20000000U
 #define SRAM_SIZE  (128U * 1024U)
 #define SRAM_END  (SRAM_START+SRAM_SIZE) 
 
 #define STACK_START SRAM_END
 
-
 #define WEAK __attribute__ ((weak,alias("Defualt_Handle")))
 
-
+int main(void);
 __attribute__ ((used))
 void WEAK  Reset_Handler(void);
 void WEAK  NMI_Handler(void);
@@ -21,7 +26,6 @@ void WEAK  SVC_Handler(void);
 void WEAK  DebugMon_Handler(void);
 void WEAK  PendSV_Handler(void);
 void WEAK  SysTick_Handler(void);
-
 
 void WEAK  WWDG_IRQHandler(void);
 void WEAK  PVD_IRQHandler(void);
@@ -210,8 +214,28 @@ void (* const g_pfnVectors[])(void) =
   
 };
 
+
+
 void Defualt_Handle(void)
 {
     while(1);
 }
 
+void Reset_Handler(void)
+{
+    uint32_t size = (uint32_t)&_edata - (uint32_t)&_sdata  ;
+    uint8_t *pDst = (uint8_t*)&_sdata;
+    uint8_t *pSrc = (uint8_t*)&_la_data;
+    for(uint32_t i = 0; i <= size ; i++)
+    {
+        *pDst++ = *pDst++;
+    }
+    size = (uint32_t)&_ebss - (uint32_t)&_sbss  ;
+    pDst = (uint8_t* )&_sbss;
+    for(uint32_t i = 0; i <= size ; i++)
+    {
+        *pDst = 0;
+    }
+    main();    
+
+}
