@@ -29,8 +29,8 @@
 #include "main.h"
 #include "../0.system/system_stm32f4xx.h"
 #include "../0.system/stm32f4xx.h"
-#include "../0.system/stm32f4xx_rcc.h"
-#include "../0.system/stm32f4xx_gpio.h"
+#include "../1.driver/0.clock/stm32f4xx_rcc.h"
+#include "../1.driver/1.gpio/stm32f4xx_gpio.h"
 
 /** @addtogroup STM32F4xx_StdPeriph_Examples
   * @{
@@ -54,6 +54,13 @@ GPIO_InitTypeDef  GPIO_InitStructure;
   * @param  None
   * @retval None
   */
+void msDelay(unsigned long msTime)
+{
+	unsigned long i,j, nCount=0x1310;
+	for(i=0;i<msTime;i++)
+		for(j=0;j<nCount;j++);
+}
+
 int main(void)
 {
   /*!< At this stage the microcontroller clock setting is already configured, 
@@ -68,18 +75,28 @@ int main(void)
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 
   /* Configure PG6 and PG8 in output pushpull mode */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15|GPIO_Pin_14|GPIO_Pin_13|GPIO_Pin_12;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
   GPIO_Init(GPIOD, &GPIO_InitStructure);
 
+  /* To achieve GPIO toggling maximum frequency, the following  sequence is mandatory. 
+     You can monitor PG6 or PG8 on the scope to measure the output signal. 
+     If you need to fine tune this frequency, you can add more GPIO set/reset 
+     cycles to minimize more the infinite loop timing.
+     This code needs to be compiled with high speed optimization option.  */  
   while (1)
   {
     /* Set PG6 and PG8 */
-    GPIOD->BSRRL = GPIO_Pin_15;
-   
+    GPIOD->BSRRL = GPIO_Pin_12;
+    GPIOD->BSRRL = GPIO_Pin_13;
+    msDelay(1000);
+    GPIOD->BSRRH = GPIO_Pin_12;
+    GPIOD->BSRRH = GPIO_Pin_13;
+    msDelay(1000);
+    
   }
 }
 

@@ -5,8 +5,15 @@ OUTPUT_DIR := $(PRO_DIR)/output
 
 INC_DIR := $(PRO_DIR)/../0.application
 INC_DIR += $(PRO_DIR)/../2.tool/0.system
+INC_DIR += $(PRO_DIR)/../2.tool/0.system/0.core
+INC_DIR += $(PRO_DIR)/../1.driver/0.clock
+INC_DIR += $(PRO_DIR)/../1.driver/1.gpio
+
+
 
 SRC_DIR := $(PRO_DIR)/../0.application
+SRC_DIR += $(PRO_DIR)/../1.driver/0.clock
+SRC_DIR += $(PRO_DIR)/../1.driver/1.gpio
 SRC_DIR += $(PRO_DIR)/../2.tool/0.system
 SRC_DIR += $(PRO_DIR)/../2.tool/2.startup
 
@@ -45,13 +52,25 @@ build: $(OBJ_FILES) $(LINKER)
 upload: 
 	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -p "$(OUTPUT_DIR)/$(PRO_NAME).hex" 0x08000000
 	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -rst
+	@echo "------------------flash done-----------------"
 
+BL: clear $(OBJ_FILES) $(LINKER)
+	mkdir -p $(OUTPUT_DIR)
+	$(LD) $(LD_OPT) $(PATH_OBJ) -o $(OUTPUT_DIR)/$(PRO_NAME).elf
+	$(COMPILER_DIR)/arm-none-eabi/bin/objcopy.exe -O ihex "$(OUTPUT_DIR)/$(PRO_NAME).elf" "$(OUTPUT_DIR)/$(PRO_NAME).hex"
+	@echo "------------------build done-----------------"
+	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -p "$(OUTPUT_DIR)/$(PRO_NAME).hex" 0x08000000
+	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -rst
+	@echo "------------------flash done-----------------"
 
-.PHONY: clear 
+%.o: %.c $(INC_FILES)
+	mkdir -p $(OUTPUT_DIR)
+	$(CC) $(CC_OPT) -c $< -o $(OUTPUT_DIR)/$@ 
+
+.PHONY: clear
 clear:
 	rm -rf $(OUTPUT_DIR)
-log-%:
-	@echo $($(subst log-,,$@)) 
+
 
 
 
