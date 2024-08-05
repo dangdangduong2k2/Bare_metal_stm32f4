@@ -54,6 +54,9 @@ GPIO_InitTypeDef  GPIO_InitStructure;
   * @param  None
   * @retval None
   */
+
+int a=0;
+
 void msDelay(unsigned long msTime)
 {
 	unsigned long i,j, nCount=0x1310;
@@ -82,11 +85,7 @@ int main(void)
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
   GPIO_Init(GPIOD, &GPIO_InitStructure);
 
-  /* To achieve GPIO toggling maximum frequency, the following  sequence is mandatory. 
-     You can monitor PG6 or PG8 on the scope to measure the output signal. 
-     If you need to fine tune this frequency, you can add more GPIO set/reset 
-     cycles to minimize more the infinite loop timing.
-     This code needs to be compiled with high speed optimization option.  */  
+
   while (1)
   {
     /* Set PG6 and PG8 */
@@ -96,6 +95,8 @@ int main(void)
     GPIOD->BSRRH = GPIO_Pin_12;
     GPIOD->BSRRH = GPIO_Pin_13;
     msDelay(1000);
+
+    a++;
     
   }
 }
