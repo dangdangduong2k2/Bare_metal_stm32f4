@@ -265,12 +265,12 @@ LOAD linker stubs
  .debug_aranges
                 0x00000080       0x20 ./output/startup_Stm32f4.o
 
-.debug_line     0x00000000     0x1114
- .debug_line    0x00000000      0x238 ./output/main.o
- .debug_line    0x00000238      0x6b5 ./output/stm32f4xx_rcc.o
- .debug_line    0x000008ed      0x3c0 ./output/stm32f4xx_gpio.o
- .debug_line    0x00000cad      0x2e1 ./output/system_stm32f4xx.o
- .debug_line    0x00000f8e      0x186 ./output/startup_Stm32f4.o
+.debug_line     0x00000000     0x1112
+ .debug_line    0x00000000      0x236 ./output/main.o
+ .debug_line    0x00000236      0x6b5 ./output/stm32f4xx_rcc.o
+ .debug_line    0x000008eb      0x3c0 ./output/stm32f4xx_gpio.o
+ .debug_line    0x00000cab      0x2e1 ./output/system_stm32f4xx.o
+ .debug_line    0x00000f8c      0x186 ./output/startup_Stm32f4.o
 
 .debug_str      0x00000000      0xc6e
  .debug_str     0x00000000      0xc6e ./output/main.o

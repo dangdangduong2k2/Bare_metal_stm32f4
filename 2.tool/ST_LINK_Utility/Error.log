@@ -1,10 +1,10 @@
 ******** xxx ********
-******************* GDI DUMP => Date : Mon Aug 05 19:15:24 2024
+******************* GDI DUMP => Date : Sat Aug 10 18:51:20 2024
 
 cErrLog::SetLogTraceOn
 STLinkUSBDriver.dll loaded
 ST-Link/V2 device detected
-Target voltage detected: 2.929517
+Target voltage detected: 3.542448
 W at 0xe000edf0: 0xa05f0003
 R at 0xe000edf0: 0x00030003
 Driving NRST low
