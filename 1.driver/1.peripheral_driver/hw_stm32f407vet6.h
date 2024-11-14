@@ -5,8 +5,6 @@
 #define read_reg(addr,mask)  *((uint32_t*)(addr)) & mask
 
 
-
-
 /*RCC block*/
 #define BASE_ADDR_RCC                           0x40023800u
 
