@@ -4,25 +4,23 @@ PRO_NAME := stm32_f4
 OUTPUT_DIR := $(PRO_DIR)/output
 
 INC_DIR := $(PRO_DIR)/../0.application
-INC_DIR += $(PRO_DIR)/../2.tool/0.system
-INC_DIR += $(PRO_DIR)/../2.tool/0.system/0.core
-INC_DIR += $(PRO_DIR)/../1.driver/0.clock
-INC_DIR += $(PRO_DIR)/../1.driver/1.gpio
-
+INC_DIR += $(PRO_DIR)/../1.driver/1.peripheral_driver/0.clock
+INC_DIR += $(PRO_DIR)/../1.driver/1.peripheral_driver/1.gpio
+INC_DIR += $(PRO_DIR)/../2.system
 
 
 SRC_DIR := $(PRO_DIR)/../0.application
-SRC_DIR += $(PRO_DIR)/../1.driver/0.clock
-SRC_DIR += $(PRO_DIR)/../1.driver/1.gpio
-SRC_DIR += $(PRO_DIR)/../2.tool/0.system
-SRC_DIR += $(PRO_DIR)/../2.tool/2.startup
+SRC_DIR += $(PRO_DIR)/../1.driver/1.peripheral_driver/0.clock
+SRC_DIR += $(PRO_DIR)/../1.driver/1.peripheral_driver/1.gpio
+SRC_DIR += $(PRO_DIR)/../2.system/1.startup
+
 
 SRC_FILES := $(foreach SRC_DIR,$(SRC_DIR),$(wildcard $(SRC_DIR)/*.c))
 INC_FILES := $(foreach INC_DIR,$(INC_DIR),$(wildcard $(INC_DIR)/*.h))
 INC_FILES := $(notdir $(INC_FILES))
 COMPILER_DIR := C:/arm-gnu-toolchain-13.3.rel1-mingw-w64-i686-arm-none-eabi
 
-LINKER = $(PRO_DIR)/1.linker/linker_Stm32f4.ld
+LINKER = $(PRO_DIR)/../2.system/0.linker/linker_stm32f4.ld
 
 CC := $(COMPILER_DIR)/bin/arm-none-eabi-gcc
 LD := $(COMPILER_DIR)/bin/arm-none-eabi-ld 
