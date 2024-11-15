@@ -1,52 +1,30 @@
 #include "clock.h"
 
-
-void clock_init(void)
+void ClockInit(void)
 {
-    uint32_t tempreg;
-    /*power on*/
-    tempreg = read_reg(RCC_APB1ENR,~(1<<28)); // reset bit 28 : Power interface clock disabled
-    tempreg = tempreg | (1<28); // set bit 28 : Power interface clock enable
-    write_reg(RCC_PLLCFGR,tempreg);	 
-    /*osc option*/
-    tempreg =  read_reg(RCC_CR,~(1<<16)); 
-    tempreg =  tempreg | (1<<16);
-    write_reg(RCC_CR,tempreg);	 
-    /*PLL configuration*/
-    /*M*/
-    tempreg =  read_reg(RCC_PLLCFGR,~(0x3F<<0)); 
-    tempreg =  tempreg | (0x25<7);
-    write_reg(RCC_PLLCFGR,tempreg);	
-    /*N*/
-    tempreg =  read_reg(RCC_PLLCFGR,~(0xFF<14)); 
-    tempreg =  tempreg | (0x150<<17);
-    write_reg(RCC_PLLCFGR,tempreg);	
-    /*P*/
-    tempreg =  read_reg(RCC_PLLCFGR ,~(0x3<17)); 
-    write_reg(RCC_PLLCFGR,tempreg);	
-    /*AHB*/
-    tempreg =  read_reg(RCC_CFGR,~(0xf<7)); 
-    write_reg(RCC_CFGR,tempreg);	
-    /*APB1*/
-    tempreg =  read_reg(RCC_CFGR,~(0xe<12)); 
-    tempreg =  tempreg | (0x5<<13);
-    write_reg(RCC_CFGR,tempreg);	
-    /*APB2*/
-    tempreg =  read_reg(RCC_CFGR,~(0xe<15)); 
-    tempreg =  tempreg | (0x4<<16);
-    write_reg(RCC_CFGR,tempreg);	
-    /*PLL ON*/
-    tempreg =  read_reg(RCC_CR,~(1<<24)); 
-    tempreg =  tempreg | (1<<24);
-    write_reg(RCC_CR,tempreg);	
-    /*wait flag on*/
-    tempreg =  read_reg(RCC_CR,0xffff); 
-    while(!(tempreg&(1<<25)));
-
-    /*choose clock source*/
-    tempreg =  tempreg | (2<<0);
-    write_reg(RCC_CFGR,tempreg);	
-    /*wait flag on*/
-    tempreg =  read_reg(RCC_CFGR,0xffff); 
-    while(!(tempreg&(2<<2)));
+    /*Power CLock On*/
+    RCC->APB1ENR |= 1<<28;
+    /*Voltage scaling config*/
+    PWR->CR |= 3<<14;
+    /*FLASH PREFETCH*/
+    FLASH->ACR = (1<<8) | (1<<9)| (1<<10)| (5<<0);
+    /*HSE on*/
+    RCC->CR |= 1<<16;  
+    while (!(RCC->CR & (1<<17)));
+    /*PLL config*/
+    #define PLL_M 	25
+    #define PLL_N 	336
+    #define PLL_P 	2  
+    RCC->PLLCFGR = (PLL_M <<0) | (PLL_N << 6) | (PLL_P <<16) | (1<<22);
+    /*Prescaler config*/
+    RCC->CFGR &= ~(1<<4); /*AHB PR 1*/
+    /*APB1 PR*/
+    RCC->CFGR |= (5<<10); /*APB1 PR 4*/
+    RCC->CFGR |= (4<<13); /*APB2 PR 2*/
+    /*PLL On*/
+    RCC->CR |= (1<<24);
+    while (!(RCC->CR & (1<<25))); //wait flag
+    /*PLL to sysclk*/
+    RCC->CFGR |= (2<<0);
+    while (!(RCC->CFGR & (2<<2))); //wait flag
 }

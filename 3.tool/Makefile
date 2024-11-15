@@ -6,7 +6,7 @@ OUTPUT_DIR := $(PRO_DIR)/output
 INC_DIR := $(PRO_DIR)/../0.application
 INC_DIR += $(PRO_DIR)/../1.driver/1.peripheral_driver/0.clock
 INC_DIR += $(PRO_DIR)/../1.driver/1.peripheral_driver/1.gpio
-INC_DIR += $(PRO_DIR)/../2.system
+
 
 
 SRC_DIR := $(PRO_DIR)/../0.application
