@@ -2,6 +2,9 @@
 #define __CLOCK_H__
 #include "../hw_stm32f407vet6.h"
 
+#define HSI_FREQ          16000000   // Tần số HSI (16 MHz)
+#define HSE_FREQ          8000000    // Tần số HSE (8 MHz)
+
 #define HSI        0u
 #define HSE        1u
 #define PLL        2u
@@ -47,7 +50,7 @@
 // 101: AHB clock divided by 4
 // 110: AHB clock divided by 8
 // 111: AHB clock divided by 16
-
+extern uint32_t SystemClock;
 void ClockInit(uint8_t SystemClockSource,
                 uint8_t AHB,
                 uint8_t APB1,

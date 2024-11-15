@@ -1,5 +1,5 @@
 #include "clock.h"
-
+uint32_t SystemClock;
 void ClockInit(uint8_t SystemClockSource,
                 uint8_t AHB,
                 uint8_t APB1,
@@ -52,4 +52,39 @@ void ClockInit(uint8_t SystemClockSource,
     /*PLL to sysclk*/
     RCC->CFGR |= (SystemClockSource<<0);
     while (!(RCC->CFGR & (SystemClockSource<<2))); //wait flag
+
+    SystemClock = 0;  // Xung nhịp hệ thống (final system clock)
+    uint32_t PLLClock = 0;     // Xung nhịp từ PLL
+    uint32_t PLLClockOutput = 0;  // Xung nhịp đầu ra của PLL
+    uint32_t AHBClock = 0;     // Xung nhịp AHB (từ hệ thống)
+    uint32_t APB1Clock = 0;    // Xung nhịp APB1
+    uint32_t APB2Clock = 0;    // Xung nhịp APB2
+
+    // Xác định nguồn xung nhịp hệ thống
+    if (SystemClockSource == HSI) { // Sử dụng HSI (HSI = 16 MHz)
+        SystemClock = HSI_FREQ;
+    }
+    else if (SystemClockSource == HSE) { // Sử dụng HSE
+        SystemClock = HSE_FREQ;
+    }
+    else if (SystemClockSource == PLL) { // Sử dụng PLL
+        if (PLLEnable == PLLENABLE) {
+            // Tính toán xung PLL đầu ra
+            if (ClockInputPLL == HSI) { // Nếu nguồn PLL là HSI
+                PLLClock = HSI_FREQ;
+            }
+            else if (ClockInputPLL == HSE) { // Nếu nguồn PLL là HSE
+                PLLClock = HSE_FREQ;
+            }
+
+            // Tính xung PLL trước khi chia với PLLP
+            PLLClockOutput = (PLLClock / PLLM) * PLLN;
+
+            // Chia PLLClockOutput bởi PLLP để có xung hệ thống
+            PLLClockOutput = PLLClockOutput / PLLP;
+
+            // Xung hệ thống là xung đầu ra của PLL
+            SystemClock = PLLClockOutput;
+        }
+    }
 }

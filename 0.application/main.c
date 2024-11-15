@@ -6,6 +6,8 @@ int main(void)
     GpioInitOutput(GPIOA,GPIO_PIN_0,PUSHPULL,MEDIUMSPEED);
     while (1)
     {
+        GpioWritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_RESET);
+        GpioWritePin(GPIOA,GPIO_PIN_0,GPIO_PIN_SET);
         
     }
 }
