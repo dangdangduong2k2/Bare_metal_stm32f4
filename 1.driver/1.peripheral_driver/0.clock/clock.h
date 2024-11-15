@@ -50,7 +50,16 @@
 // 101: AHB clock divided by 4
 // 110: AHB clock divided by 8
 // 111: AHB clock divided by 16
+#define PLLP2       0
+#define PLLP4       1
+#define PLLP6       2
+#define PLLP6       3
+// 00: PLLP = 2
+// 01: PLLP = 4
+// 10: PLLP = 6
+// 11: PLLP = 8
 extern uint32_t SystemClock;
+extern __IO uint32_t uwTick;
 void ClockInit(uint8_t SystemClockSource,
                 uint8_t AHB,
                 uint8_t APB1,

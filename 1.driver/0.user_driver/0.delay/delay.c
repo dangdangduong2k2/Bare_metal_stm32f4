@@ -1,19 +1,10 @@
 #include "delay.h"
 
-void delay_us(uint32_t delay_time) 
-{
-    uint32_t delay_cycles = 1000 * SystemClock; 
-    for (unsigned int i = 0; i < delay_cycles*delay_time; i++) 
-    {
-        asm("nop"); 
-    }
-}
+void delay_ms(uint32_t ms) {
+    uint32_t cycles_per_ms = SystemClock / 10000;
+    uint32_t total_cycles = cycles_per_ms * ms;
 
-void delay_ms(uint32_t delay_time) 
-{
-    uint32_t delay_cycles = 1000 * SystemClock; 
-    for (unsigned int i = 0; i < delay_cycles*delay_time*1000; i++) 
-    {
-        asm("nop"); 
+    while (total_cycles--) {
+        __asm("nop"); 
     }
 }

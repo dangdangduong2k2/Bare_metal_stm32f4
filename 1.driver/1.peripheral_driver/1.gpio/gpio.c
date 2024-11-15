@@ -42,9 +42,9 @@ void GpioInitOutput(GPIO_TypeDef *GPIOx,
                     uint8_t OutSpeed)
 {
     GpioEnable(GPIOx);
-    GPIOx->MODER   |= OUTPUT   << (Pin*2+1);
+    GPIOx->MODER   |= OUTPUT   << (Pin*2);
     GPIOx->OTYPER  |= OutType  << (Pin);
-    GPIOx->OSPEEDR |= OutSpeed << (Pin*2+1);
+    GPIOx->OSPEEDR |= OutSpeed << (Pin*2);
 }
 
 void GpioInitInput(GPIO_TypeDef *GPIOx,
@@ -52,8 +52,8 @@ void GpioInitInput(GPIO_TypeDef *GPIOx,
                     uint8_t Pullmode)
 {
     GpioEnable(GPIOx);
-    GPIOx->MODER   |= INPUT    << (Pin*2+1);
-    GPIOx->PUPDR   |= Pullmode << (Pin*2+1);
+    GPIOx->MODER   |= INPUT    << (Pin*2);
+    GPIOx->PUPDR   |= Pullmode << (Pin*2);
 }
 
 void GpioWritePin(GPIO_TypeDef *GPIOx,
