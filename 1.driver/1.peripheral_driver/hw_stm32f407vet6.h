@@ -30,8 +30,8 @@ typedef struct
   __IO uint32_t OPTCR;    /*!< FLASH option control register ,  Address offset: 0x14 */
   __IO uint32_t OPTCR1;   /*!< FLASH option control register 1, Address offset: 0x18 */
 } FLASH_TypeDef;
-#define FLASH_R_BASE               (AHB1PERIPH_BASE + 0x3C00UL)
-#define FLASH                      ((FLASH_TypeDef *) FLASH_R_BASE)
+#define FLASH_ADDR_BASE            (AHB1PERIPH_BASE + 0x3C00UL)
+#define FLASH                      ((FLASH_TypeDef *) FLASH_ADDR_BASE)
 
 /*RCC block*/
 typedef struct

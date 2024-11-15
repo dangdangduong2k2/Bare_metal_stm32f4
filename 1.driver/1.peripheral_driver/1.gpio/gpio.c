@@ -1,6 +1,6 @@
 #include "gpio.h"
 
-void GpioEnable(GPIO_TypeDef *GPIOx)
+static void GpioEnable(GPIO_TypeDef *GPIOx)
 {
     switch ((uint32_t)GPIOx)
     {
@@ -32,7 +32,6 @@ void GpioEnable(GPIO_TypeDef *GPIOx)
             RCC->AHB1ENR |= (1 << 8); 
             break;
         default:
-            
             break;
     }
 }
@@ -42,17 +41,19 @@ void GpioInitOutput(GPIO_TypeDef *GPIOx,
                     uint8_t OutType,
                     uint8_t OutSpeed)
 {
-   GPIOx->MODER   |= OUTPUT   << (Pin*2+1);
-   GPIOx->OTYPER  |= OutType  << (Pin);
-   GPIOx->OSPEEDR |= OutSpeed << (Pin*2+1);
+    GpioEnable(GPIOx);
+    GPIOx->MODER   |= OUTPUT   << (Pin*2+1);
+    GPIOx->OTYPER  |= OutType  << (Pin);
+    GPIOx->OSPEEDR |= OutSpeed << (Pin*2+1);
 }
 
 void GpioInitInput(GPIO_TypeDef *GPIOx,
                     uint8_t Pin,
                     uint8_t Pullmode)
 {
-   GPIOx->MODER   |= INPUT    << (Pin*2+1);
-   GPIOx->PUPDR   |= Pullmode << (Pin*2+1);
+    GpioEnable(GPIOx);
+    GPIOx->MODER   |= INPUT    << (Pin*2+1);
+    GPIOx->PUPDR   |= Pullmode << (Pin*2+1);
 }
 
 void GpioWritePin(GPIO_TypeDef *GPIOx,

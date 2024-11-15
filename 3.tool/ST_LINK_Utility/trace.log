@@ -7763,3 +7763,36 @@ R at 0xe000edf0: 0x00030003
 W regId 16: 0x01000000
 W at 0xe000edfc: 0x00000000
 W at 0xe000edf0: 0xa05f0001
+cErrLog::SetLogTraceOn
+STLinkUSBDriver.dll loaded
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB
+No ST-LINK device detected on the USB

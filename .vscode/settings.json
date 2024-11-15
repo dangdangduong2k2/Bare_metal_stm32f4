@@ -3,6 +3,7 @@
         "type_traits": "cpp",
         "clock.h": "c",
         "gpio.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "hw_stm32f407vet6.h": "c"
     }
 }

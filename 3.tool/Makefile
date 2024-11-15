@@ -52,14 +52,15 @@ upload:
 	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -rst
 	@echo "------------------flash done-----------------"
 
-BL: clear $(OBJ_FILES) $(LINKER)
-	mkdir -p $(OUTPUT_DIR)
-	$(LD) $(LD_OPT) $(PATH_OBJ) -o $(OUTPUT_DIR)/$(PRO_NAME).elf
-	$(COMPILER_DIR)/arm-none-eabi/bin/objcopy.exe -O ihex "$(OUTPUT_DIR)/$(PRO_NAME).elf" "$(OUTPUT_DIR)/$(PRO_NAME).hex"
-	@echo "------------------build done-----------------"
-	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -p "$(OUTPUT_DIR)/$(PRO_NAME).hex" 0x08000000
-	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -rst
-	@echo "------------------flash done-----------------"
+# BL: clear $(OBJ_FILES) $(LINKER)
+# 	mkdir -p $(OUTPUT_DIR)
+# 	$(LD) $(LD_OPT) $(PATH_OBJ) -o $(OUTPUT_DIR)/$(PRO_NAME).elf
+# 	$(COMPILER_DIR)/arm-none-eabi/bin/objcopy.exe -O ihex "$(OUTPUT_DIR)/$(PRO_NAME).elf" "$(OUTPUT_DIR)/$(PRO_NAME).hex"
+# 	@echo "------------------build done-----------------"
+# 	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -p "$(OUTPUT_DIR)/$(PRO_NAME).hex" 0x08000000
+# 	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -rst
+# 	@echo "------------------flash done-----------------"
+BL: build upload
 
 %.o: %.c $(INC_FILES)
 	mkdir -p $(OUTPUT_DIR)

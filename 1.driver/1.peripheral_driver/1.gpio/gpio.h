@@ -39,7 +39,7 @@
 #define GPIO_PIN_SET      0u
 #define GPIO_PIN_RESET    1u
 
-void GpioEnable(GPIO_TypeDef *GPIOx);
+
 void GpioInitOutput(GPIO_TypeDef *GPIOx,
                     uint8_t Pin,
                     uint8_t OutType,
