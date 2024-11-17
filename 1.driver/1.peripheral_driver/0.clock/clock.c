@@ -58,34 +58,40 @@ void ClockInit(uint8_t SystemClockSource,
     RCC->CFGR |= (SystemClockSource<<0);
     while (!(RCC->CFGR & (SystemClockSource<<2))); //wait flag
 
-    SystemClock = 0;  // Xung nhịp hệ thống (final system clock)
-    uint32_t PLLClock = 0;     // Xung nhịp từ PLL
-    uint32_t PLLClockOutput = 0;  // Xung nhịp đầu ra của PLL
-    uint32_t AHBClock = 0;     // Xung nhịp AHB (từ hệ thống)
-    uint32_t APB1Clock = 0;    // Xung nhịp APB1
-    uint32_t APB2Clock = 0;    // Xung nhịp APB2
+    SystemClock = 0;           // System clock (final system clock)
+    uint32_t PLLClock = 0;     // Clock from PLL
+    uint32_t PLLClockOutput = 0;  // Output clock of PLL
+    uint32_t AHBClock = 0;     // AHB clock (from system clock)
+    uint32_t APB1Clock = 0;    // APB1 clock
+    uint32_t APB2Clock = 0;    // APB2 clock
 
-    // Xác định nguồn xung nhịp hệ thống
-    if (SystemClockSource == HSI) { // Sử dụng HSI (HSI = 16 MHz)
+    // Determine the system clock source
+    if (SystemClockSource == HSI) 
+    {   // Use HSI (HSI = 16 MHz)
         SystemClock = HSI_FREQ;
     }
-    else if (SystemClockSource == HSE) { // Sử dụng HSE
+    else if (SystemClockSource == HSE) 
+    {   // Use HSE
         SystemClock = HSE_FREQ;
     }
-    else if (SystemClockSource == PLL) { // Sử dụng PLL
-        if (PLLEnable == PLLENABLE) {
-            // Tính toán xung PLL đầu ra
-            if (ClockInputPLL == HSI) { // Nếu nguồn PLL là HSI
+    else if (SystemClockSource == PLL)
+    {   // Use PLL
+        if (PLLEnable == PLLENABLE) 
+        {
+            // Calculate PLL output clock
+            if (ClockInputPLL == HSI) 
+            { // If PLL source is HSI
                 PLLClock = HSI_FREQ;
             }
-            else if (ClockInputPLL == HSE) { // Nếu nguồn PLL là HSE
+            else if (ClockInputPLL == HSE) 
+            { // If PLL source is HSE
                 PLLClock = HSE_FREQ;
             }
-            // Tính xung PLL trước khi chia với PLLP
+            // Calculate PLL clock before division by PLLP
             PLLClockOutput = (PLLClock / PLLM) * PLLN;
-            // Chia PLLClockOutput bởi PLLP để có xung hệ thống
+            // Divide PLLClockOutput by PLLP to get system clock
             PLLClockOutput = PLLClockOutput / PLLP;
-            // Xung hệ thống là xung đầu ra của PLL
+            // System clock is the output of PLL
             SystemClock = PLLClockOutput;
         }
     }
