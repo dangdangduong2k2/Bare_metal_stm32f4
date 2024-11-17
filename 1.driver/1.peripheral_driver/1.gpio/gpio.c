@@ -1,5 +1,5 @@
 #include "gpio.h"
-
+/*GPIO*/
 static void GpioEnable(GPIO_TypeDef *GPIOx)
 {
     switch ((uint32_t)GPIOx)
@@ -56,6 +56,45 @@ void GpioInitInput(GPIO_TypeDef *GPIOx,
     GPIOx->PUPDR   |= Pullmode << (Pin*2);
 }
 
+void GpioInitITinput(GPIO_TypeDef *GPIOx,
+                    uint8_t Pin,
+                    uint8_t Pullmode,
+                    uint8_t Line, 
+                    uint8_t TrigerMode,
+                    uint8_t Priority)
+{
+    GpioEnable(GPIOx);
+    GPIOx->MODER   |= INPUT    << (Pin*2);
+    GPIOx->PUPDR   |= Pullmode << (Pin*2);
+    //enable exti
+    EXTI->IMR |= (1<<Line);
+    //system alow exti
+    switch ((uint32_t)GPIOx)
+    {
+        case (uint32_t)GPIOA:
+            SYSCFG->EXTICR[Line / 4]|=(0<<Line); 
+            break;
+        case (uint32_t)GPIOB:
+            SYSCFG->EXTICR[Line / 4]|=(1<<Line); 
+            break;
+        case (uint32_t)GPIOC:
+            SYSCFG->EXTICR[Line / 4]|=(2<<Line); 
+            break;
+        case (uint32_t)GPIOH:
+            SYSCFG->EXTICR[Line / 4]|=(7<<Line); 
+            break;
+        default:
+            break;
+    }
+    //set priority
+    if(15<Priority)
+    {
+        Priority=15;
+    }
+    NVIC->IP[10] |= (Priority<<4);
+    NVIC->ISER[0] |= (1<<10);
+}
+
 void GpioWritePin(GPIO_TypeDef *GPIOx,
                     uint8_t Pin,
                     uint8_t State)
@@ -77,4 +116,5 @@ uint8_t GpioReadPin(GPIO_TypeDef *GPIOx,
 {
    return ((GPIOx->IDR) >> Pin) & 0x1UL;
 }
+
 

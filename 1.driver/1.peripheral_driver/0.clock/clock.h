@@ -53,7 +53,7 @@
 #define PLLP2       0
 #define PLLP4       1
 #define PLLP6       2
-#define PLLP6       3
+#define PLLP8       3
 // 00: PLLP = 2
 // 01: PLLP = 4
 // 10: PLLP = 6

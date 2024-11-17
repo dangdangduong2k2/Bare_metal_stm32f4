@@ -1,8 +1,10 @@
 #ifndef __HW_STM32F407VET6_H__
 #define __HW_STM32F407VET6_H__
 #include <stdint.h>
-#define __IO    volatile             /*!< Defines 'read / write' permissions */
-
+#define __IO     volatile             /*!< Defines 'read / write' permissions */
+#define __IM     volatile const      
+#define __OM     volatile           
+#define __IOM    volatile            
 /*Peripherals block*/
 #define PERIPH_BASE                0x40000000UL 
 #define APB1PERIPH_BASE            PERIPH_BASE
@@ -10,6 +12,15 @@
 #define AHB1PERIPH_BASE            (PERIPH_BASE + 0x00020000UL)
 #define AHB2PERIPH_BASE            (PERIPH_BASE + 0x10000000UL)
 
+/*Core block*/
+#define SCS_BASE            (0xE000E000UL)                            /*!< System Control Space Base Address */
+#define ITM_BASE            (0xE0000000UL)                            /*!< ITM Base Address */
+#define DWT_BASE            (0xE0001000UL)                            /*!< DWT Base Address */
+#define TPI_BASE            (0xE0040000UL)                            /*!< TPI Base Address */
+#define CoreDebug_BASE      (0xE000EDF0UL)                            /*!< Core Debug Base Address */
+#define SysTick_BASE        (SCS_BASE +  0x0010UL)                    /*!< SysTick Base Address */
+#define NVIC_BASE           (SCS_BASE +  0x0100UL)                    /*!< NVIC Base Address */
+#define SCB_BASE            (SCS_BASE +  0x0D00UL)                    /*!< System Control Block Base Address */
 /*Power block*/
 typedef struct
 {
@@ -18,6 +29,50 @@ typedef struct
 } PWR_TypeDef;
 #define PWR_BASE                   (APB1PERIPH_BASE + 0x7000UL)
 #define PWR                        ((PWR_TypeDef *) PWR_BASE)
+
+/*EXTI block*/
+typedef struct
+{
+  __IO uint32_t IMR;    /*!< EXTI Interrupt mask register,            Address offset: 0x00 */
+  __IO uint32_t EMR;    /*!< EXTI Event mask register,                Address offset: 0x04 */
+  __IO uint32_t RTSR;   /*!< EXTI Rising trigger selection register,  Address offset: 0x08 */
+  __IO uint32_t FTSR;   /*!< EXTI Falling trigger selection register, Address offset: 0x0C */
+  __IO uint32_t SWIER;  /*!< EXTI Software interrupt event register,  Address offset: 0x10 */
+  __IO uint32_t PR;     /*!< EXTI Pending register,                   Address offset: 0x14 */
+} EXTI_TypeDef;
+#define EXTI_BASE                   0x40013C00UL
+#define EXTI                        ((EXTI_TypeDef*) EXTI_BASE)
+
+/*NVIC*/
+typedef struct
+{
+  __IOM uint32_t ISER[8U];               /*!< Offset: 0x000 (R/W)  Interrupt Set Enable Register */
+        uint32_t RESERVED0[24U];
+  __IOM uint32_t ICER[8U];               /*!< Offset: 0x080 (R/W)  Interrupt Clear Enable Register */
+        uint32_t RSERVED1[24U];
+  __IOM uint32_t ISPR[8U];               /*!< Offset: 0x100 (R/W)  Interrupt Set Pending Register */
+        uint32_t RESERVED2[24U];
+  __IOM uint32_t ICPR[8U];               /*!< Offset: 0x180 (R/W)  Interrupt Clear Pending Register */
+        uint32_t RESERVED3[24U];
+  __IOM uint32_t IABR[8U];               /*!< Offset: 0x200 (R/W)  Interrupt Active bit Register */
+        uint32_t RESERVED4[56U];
+  __IOM uint8_t  IP[240U];               /*!< Offset: 0x300 (R/W)  Interrupt Priority Register (8Bit wide) */
+        uint32_t RESERVED5[644U];
+  __OM  uint32_t STIR;                   /*!< Offset: 0xE00 ( /W)  Software Trigger Interrupt Register */
+}  NVIC_Type;             
+#define NVIC                        ((NVIC_Type*) NVIC_BASE)
+
+/*System block*/
+typedef struct
+{
+  __IO uint32_t MEMRMP;       /*!< SYSCFG memory remap register,                      Address offset: 0x00      */
+  __IO uint32_t PMC;          /*!< SYSCFG peripheral mode configuration register,     Address offset: 0x04      */
+  __IO uint32_t EXTICR[4];    /*!< SYSCFG external interrupt configuration registers, Address offset: 0x08-0x14 */
+  uint32_t      RESERVED[2];  /*!< Reserved, 0x18-0x1C                                                          */
+  __IO uint32_t CMPCR;        /*!< SYSCFG Compensation cell control register,         Address offset: 0x20      */
+} SYSCFG_TypeDef;
+#define SYSCFG_BASE                 0x40013800 
+#define SYSCFG                      ((SYSCFG_TypeDef*) SYSCFG_BASE)
 
 /*Flash block*/
 typedef struct

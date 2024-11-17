@@ -39,6 +39,9 @@
 #define GPIO_PIN_SET      0u
 #define GPIO_PIN_RESET    1u
 
+#define RISING            0u
+#define FALLLING          1u
+#define RISINGFALLING     2u
 
 void GpioInitOutput(GPIO_TypeDef *GPIOx,
                     uint8_t Pin,

@@ -11,138 +11,139 @@ SRAM             0x20000000         0x00020000         xrw
 Linker script and memory map
 
 
-.text           0x08000000      0x700
+.text           0x08000000      0x764
  *(.isr_vector)
  .isr_vector    0x08000000      0x188 ./output/startup_Stm32f4.o
                 0x08000000                g_pfnVectors
  *(.text)
- .text          0x08000188       0x5c ./output/main.o
+ .text          0x08000188       0xb4 ./output/main.o
                 0x08000188                main
- .text          0x080001e4      0x1f0 ./output/clock.o
-                0x080001e4                ClockInit
- .text          0x080003d4      0x25c ./output/gpio.o
-                0x080004f4                GpioInitOutput
-                0x08000556                GpioInitInput
-                0x08000590                GpioWritePin
-                0x08000606                GpioReadPin
- .text          0x08000630       0x44 ./output/delay.o
-                0x08000630                delay_ms
- .text          0x08000674       0x8c ./output/startup_Stm32f4.o
-                0x08000674                Reset_Handler
-                0x080006f8                HASH_RNG_IRQHandler
-                0x080006f8                EXTI2_IRQHandler
-                0x080006f8                TIM8_CC_IRQHandler
-                0x080006f8                DebugMon_Handler
-                0x080006f8                TIM1_CC_IRQHandler
-                0x080006f8                DMA2_Stream5_IRQHandler
-                0x080006f8                HardFault_Handler
-                0x080006f8                DMA1_Stream5_IRQHandler
-                0x080006f8                SysTick_Handler
-                0x080006f8                PVD_IRQHandler
-                0x080006f8                SDIO_IRQHandler
-                0x080006f8                TAMP_STAMP_IRQHandler
-                0x080006f8                PendSV_Handler
-                0x080006f8                NMI_Handler
-                0x080006f8                CAN2_RX1_IRQHandler
-                0x080006f8                EXTI3_IRQHandler
-                0x080006f8                TIM8_TRG_COM_TIM14_IRQHandler
-                0x080006f8                TIM1_UP_TIM10_IRQHandler
-                0x080006f8                TIM8_UP_TIM13_IRQHandler
-                0x080006f8                I2C3_ER_IRQHandler
-                0x080006f8                EXTI0_IRQHandler
-                0x080006f8                I2C2_EV_IRQHandler
-                0x080006f8                DMA1_Stream2_IRQHandler
-                0x080006f8                CAN1_RX0_IRQHandler
-                0x080006f8                FPU_IRQHandler
-                0x080006f8                OTG_HS_WKUP_IRQHandler
-                0x080006f8                Defualt_Handle
-                0x080006f8                UsageFault_Handler
-                0x080006f8                CAN2_SCE_IRQHandler
-                0x080006f8                DMA2_Stream2_IRQHandler
-                0x080006f8                SPI1_IRQHandler
-                0x080006f8                TIM6_DAC_IRQHandler
-                0x080006f8                TIM1_BRK_TIM9_IRQHandler
-                0x080006f8                DCMI_IRQHandler
-                0x080006f8                CAN2_RX0_IRQHandler
-                0x080006f8                DMA2_Stream3_IRQHandler
-                0x080006f8                USART6_IRQHandler
-                0x080006f8                USART3_IRQHandler
-                0x080006f8                CRYP_IRQHandler
-                0x080006f8                RTC_Alarm_IRQHandler
-                0x080006f8                CAN1_RX1_IRQHandler
-                0x080006f8                UART5_IRQHandler
-                0x080006f8                DMA2_Stream0_IRQHandler
-                0x080006f8                TIM4_IRQHandler
-                0x080006f8                I2C1_EV_IRQHandler
-                0x080006f8                DMA1_Stream6_IRQHandler
-                0x080006f8                DMA1_Stream1_IRQHandler
-                0x080006f8                UART4_IRQHandler
-                0x080006f8                TIM3_IRQHandler
-                0x080006f8                RCC_IRQHandler
-                0x080006f8                TIM8_BRK_TIM12_IRQHandler
-                0x080006f8                EXTI15_10_IRQHandler
-                0x080006f8                ADC_IRQHandler
-                0x080006f8                DMA1_Stream7_IRQHandler
-                0x080006f8                TIM7_IRQHandler
-                0x080006f8                CAN2_TX_IRQHandler
-                0x080006f8                TIM5_IRQHandler
-                0x080006f8                DMA2_Stream7_IRQHandler
-                0x080006f8                I2C3_EV_IRQHandler
-                0x080006f8                EXTI9_5_IRQHandler
-                0x080006f8                RTC_WKUP_IRQHandler
-                0x080006f8                ETH_WKUP_IRQHandler
-                0x080006f8                SPI2_IRQHandler
-                0x080006f8                OTG_HS_EP1_IN_IRQHandler
-                0x080006f8                MemManage_Handler
-                0x080006f8                DMA1_Stream0_IRQHandler
-                0x080006f8                CAN1_TX_IRQHandler
-                0x080006f8                SVC_Handler
-                0x080006f8                EXTI4_IRQHandler
-                0x080006f8                FSMC_IRQHandler
-                0x080006f8                ETH_IRQHandler
-                0x080006f8                OTG_HS_EP1_OUT_IRQHandler
-                0x080006f8                WWDG_IRQHandler
-                0x080006f8                TIM2_IRQHandler
-                0x080006f8                OTG_FS_WKUP_IRQHandler
-                0x080006f8                TIM1_TRG_COM_TIM11_IRQHandler
-                0x080006f8                OTG_HS_IRQHandler
-                0x080006f8                EXTI1_IRQHandler
-                0x080006f8                USART2_IRQHandler
-                0x080006f8                I2C2_ER_IRQHandler
-                0x080006f8                DMA2_Stream1_IRQHandler
-                0x080006f8                CAN1_SCE_IRQHandler
-                0x080006f8                FLASH_IRQHandler
-                0x080006f8                DMA2_Stream4_IRQHandler
-                0x080006f8                BusFault_Handler
-                0x080006f8                USART1_IRQHandler
-                0x080006f8                OTG_FS_IRQHandler
-                0x080006f8                SPI3_IRQHandler
-                0x080006f8                DMA1_Stream4_IRQHandler
-                0x080006f8                I2C1_ER_IRQHandler
-                0x080006f8                DMA2_Stream6_IRQHandler
-                0x080006f8                DMA1_Stream3_IRQHandler
+ .text          0x0800023c      0x1f0 ./output/clock.o
+                0x0800023c                ClockInit
+ .text          0x0800042c      0x25c ./output/gpio.o
+                0x0800054c                GpioInitOutput
+                0x080005ae                GpioInitInput
+                0x080005e8                GpioWritePin
+                0x0800065e                GpioReadPin
+ .text          0x08000688       0x44 ./output/delay.o
+                0x08000688                delay_ms
+ .text          0x080006cc       0x8c ./output/startup_Stm32f4.o
+                0x080006cc                Reset_Handler
+                0x08000750                HASH_RNG_IRQHandler
+                0x08000750                EXTI2_IRQHandler
+                0x08000750                TIM8_CC_IRQHandler
+                0x08000750                DebugMon_Handler
+                0x08000750                TIM1_CC_IRQHandler
+                0x08000750                DMA2_Stream5_IRQHandler
+                0x08000750                HardFault_Handler
+                0x08000750                DMA1_Stream5_IRQHandler
+                0x08000750                SysTick_Handler
+                0x08000750                PVD_IRQHandler
+                0x08000750                SDIO_IRQHandler
+                0x08000750                TAMP_STAMP_IRQHandler
+                0x08000750                PendSV_Handler
+                0x08000750                NMI_Handler
+                0x08000750                CAN2_RX1_IRQHandler
+                0x08000750                EXTI3_IRQHandler
+                0x08000750                TIM8_TRG_COM_TIM14_IRQHandler
+                0x08000750                TIM1_UP_TIM10_IRQHandler
+                0x08000750                TIM8_UP_TIM13_IRQHandler
+                0x08000750                I2C3_ER_IRQHandler
+                0x08000750                I2C2_EV_IRQHandler
+                0x08000750                DMA1_Stream2_IRQHandler
+                0x08000750                CAN1_RX0_IRQHandler
+                0x08000750                FPU_IRQHandler
+                0x08000750                OTG_HS_WKUP_IRQHandler
+                0x08000750                Defualt_Handle
+                0x08000750                UsageFault_Handler
+                0x08000750                CAN2_SCE_IRQHandler
+                0x08000750                DMA2_Stream2_IRQHandler
+                0x08000750                SPI1_IRQHandler
+                0x08000750                TIM6_DAC_IRQHandler
+                0x08000750                TIM1_BRK_TIM9_IRQHandler
+                0x08000750                DCMI_IRQHandler
+                0x08000750                CAN2_RX0_IRQHandler
+                0x08000750                DMA2_Stream3_IRQHandler
+                0x08000750                USART6_IRQHandler
+                0x08000750                USART3_IRQHandler
+                0x08000750                CRYP_IRQHandler
+                0x08000750                RTC_Alarm_IRQHandler
+                0x08000750                CAN1_RX1_IRQHandler
+                0x08000750                UART5_IRQHandler
+                0x08000750                DMA2_Stream0_IRQHandler
+                0x08000750                TIM4_IRQHandler
+                0x08000750                I2C1_EV_IRQHandler
+                0x08000750                DMA1_Stream6_IRQHandler
+                0x08000750                DMA1_Stream1_IRQHandler
+                0x08000750                UART4_IRQHandler
+                0x08000750                TIM3_IRQHandler
+                0x08000750                RCC_IRQHandler
+                0x08000750                TIM8_BRK_TIM12_IRQHandler
+                0x08000750                EXTI15_10_IRQHandler
+                0x08000750                ADC_IRQHandler
+                0x08000750                DMA1_Stream7_IRQHandler
+                0x08000750                TIM7_IRQHandler
+                0x08000750                CAN2_TX_IRQHandler
+                0x08000750                TIM5_IRQHandler
+                0x08000750                DMA2_Stream7_IRQHandler
+                0x08000750                I2C3_EV_IRQHandler
+                0x08000750                EXTI9_5_IRQHandler
+                0x08000750                RTC_WKUP_IRQHandler
+                0x08000750                ETH_WKUP_IRQHandler
+                0x08000750                SPI2_IRQHandler
+                0x08000750                OTG_HS_EP1_IN_IRQHandler
+                0x08000750                MemManage_Handler
+                0x08000750                DMA1_Stream0_IRQHandler
+                0x08000750                CAN1_TX_IRQHandler
+                0x08000750                SVC_Handler
+                0x08000750                EXTI4_IRQHandler
+                0x08000750                FSMC_IRQHandler
+                0x08000750                ETH_IRQHandler
+                0x08000750                OTG_HS_EP1_OUT_IRQHandler
+                0x08000750                WWDG_IRQHandler
+                0x08000750                TIM2_IRQHandler
+                0x08000750                OTG_FS_WKUP_IRQHandler
+                0x08000750                TIM1_TRG_COM_TIM11_IRQHandler
+                0x08000750                OTG_HS_IRQHandler
+                0x08000750                EXTI1_IRQHandler
+                0x08000750                USART2_IRQHandler
+                0x08000750                I2C2_ER_IRQHandler
+                0x08000750                DMA2_Stream1_IRQHandler
+                0x08000750                CAN1_SCE_IRQHandler
+                0x08000750                FLASH_IRQHandler
+                0x08000750                DMA2_Stream4_IRQHandler
+                0x08000750                BusFault_Handler
+                0x08000750                USART1_IRQHandler
+                0x08000750                OTG_FS_IRQHandler
+                0x08000750                SPI3_IRQHandler
+                0x08000750                DMA1_Stream4_IRQHandler
+                0x08000750                I2C1_ER_IRQHandler
+                0x08000750                DMA2_Stream6_IRQHandler
+                0x08000750                DMA1_Stream3_IRQHandler
+ .text          0x08000758        0xc ./output/it.o
+                0x08000758                EXTI0_IRQHandler
  *(.rodata)
-                0x08000700                        . = ALIGN (0x4)
-                0x08000700                        _etext = .
+                0x08000764                        . = ALIGN (0x4)
+                0x08000764                        _etext = .
                 [0x00000000]                      _la_data = LOADADDR (.data)
 
-.glue_7         0x08000700        0x0
- .glue_7        0x08000700        0x0 linker stubs
+.glue_7         0x08000764        0x0
+ .glue_7        0x08000764        0x0 linker stubs
 
-.glue_7t        0x08000700        0x0
- .glue_7t       0x08000700        0x0 linker stubs
+.glue_7t        0x08000764        0x0
+ .glue_7t       0x08000764        0x0 linker stubs
 
-.vfp11_veneer   0x08000700        0x0
- .vfp11_veneer  0x08000700        0x0 linker stubs
+.vfp11_veneer   0x08000764        0x0
+ .vfp11_veneer  0x08000764        0x0 linker stubs
 
-.v4_bx          0x08000700        0x0
- .v4_bx         0x08000700        0x0 linker stubs
+.v4_bx          0x08000764        0x0
+ .v4_bx         0x08000764        0x0 linker stubs
 
-.iplt           0x08000700        0x0
- .iplt          0x08000700        0x0 ./output/main.o
+.iplt           0x08000764        0x0
+ .iplt          0x08000764        0x0 ./output/main.o
 
-.rel.dyn        0x08000700        0x0
- .rel.iplt      0x08000700        0x0 ./output/main.o
+.rel.dyn        0x08000764        0x0
+ .rel.iplt      0x08000764        0x0 ./output/main.o
 
 .data           0x20000000        0x0 load address 0x00000000
                 0x20000000                        _sdata = .
@@ -152,6 +153,7 @@ Linker script and memory map
  .data          0x20000000        0x0 ./output/gpio.o
  .data          0x20000000        0x0 ./output/delay.o
  .data          0x20000000        0x0 ./output/startup_Stm32f4.o
+ .data          0x20000000        0x0 ./output/it.o
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _edata = .
 
@@ -168,6 +170,7 @@ Linker script and memory map
  .bss           0x20000008        0x0 ./output/gpio.o
  .bss           0x20000008        0x0 ./output/delay.o
  .bss           0x20000008        0x0 ./output/startup_Stm32f4.o
+ .bss           0x20000008        0x0 ./output/it.o
  *(COMMON)
                 0x20000008                        . = ALIGN (0x4)
                 0x20000008                        _ebss = .
@@ -176,24 +179,27 @@ LOAD ./output/clock.o
 LOAD ./output/gpio.o
 LOAD ./output/delay.o
 LOAD ./output/startup_Stm32f4.o
+LOAD ./output/it.o
 OUTPUT(./output/stm32_f4.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000      0xbb7
- .debug_info    0x00000000      0x1e9 ./output/main.o
- .debug_info    0x000001e9      0x3b2 ./output/clock.o
- .debug_info    0x0000059b      0x3c0 ./output/gpio.o
- .debug_info    0x0000095b       0xcc ./output/delay.o
- .debug_info    0x00000a27      0x190 ./output/startup_Stm32f4.o
+.debug_info     0x00000000      0xc15
+ .debug_info    0x00000000      0x20e ./output/main.o
+ .debug_info    0x0000020e      0x3b2 ./output/clock.o
+ .debug_info    0x000005c0      0x3c0 ./output/gpio.o
+ .debug_info    0x00000980       0xcc ./output/delay.o
+ .debug_info    0x00000a4c      0x190 ./output/startup_Stm32f4.o
+ .debug_info    0x00000bdc       0x39 ./output/it.o
 
-.debug_abbrev   0x00000000      0x47f
- .debug_abbrev  0x00000000       0xc8 ./output/main.o
- .debug_abbrev  0x000000c8       0xfc ./output/clock.o
- .debug_abbrev  0x000001c4      0x124 ./output/gpio.o
- .debug_abbrev  0x000002e8       0x89 ./output/delay.o
- .debug_abbrev  0x00000371      0x10e ./output/startup_Stm32f4.o
+.debug_abbrev   0x00000000      0x4c3
+ .debug_abbrev  0x00000000       0xdf ./output/main.o
+ .debug_abbrev  0x000000df       0xfc ./output/clock.o
+ .debug_abbrev  0x000001db      0x124 ./output/gpio.o
+ .debug_abbrev  0x000002ff       0x89 ./output/delay.o
+ .debug_abbrev  0x00000388      0x10e ./output/startup_Stm32f4.o
+ .debug_abbrev  0x00000496       0x2d ./output/it.o
 
-.debug_aranges  0x00000000       0xa0
+.debug_aranges  0x00000000       0xc0
  .debug_aranges
                 0x00000000       0x20 ./output/main.o
  .debug_aranges
@@ -204,21 +210,25 @@ LOAD linker stubs
                 0x00000060       0x20 ./output/delay.o
  .debug_aranges
                 0x00000080       0x20 ./output/startup_Stm32f4.o
+ .debug_aranges
+                0x000000a0       0x20 ./output/it.o
 
-.debug_line     0x00000000      0xa5d
- .debug_line    0x00000000      0x224 ./output/main.o
- .debug_line    0x00000224      0x2d5 ./output/clock.o
- .debug_line    0x000004f9      0x265 ./output/gpio.o
- .debug_line    0x0000075e      0x177 ./output/delay.o
- .debug_line    0x000008d5      0x188 ./output/startup_Stm32f4.o
+.debug_line     0x00000000      0xa86
+ .debug_line    0x00000000      0x205 ./output/main.o
+ .debug_line    0x00000205      0x2d5 ./output/clock.o
+ .debug_line    0x000004da      0x265 ./output/gpio.o
+ .debug_line    0x0000073f      0x177 ./output/delay.o
+ .debug_line    0x000008b6      0x188 ./output/startup_Stm32f4.o
+ .debug_line    0x00000a3e       0x48 ./output/it.o
 
-.debug_str      0x00000000      0x495
- .debug_str     0x00000000      0x495 ./output/main.o
-                                0x1b8 (size before relaxing)
- .debug_str     0x00000495      0x32f ./output/clock.o
- .debug_str     0x00000495      0x2e9 ./output/gpio.o
- .debug_str     0x00000495      0x16e ./output/delay.o
- .debug_str     0x00000495      0x1af ./output/startup_Stm32f4.o
+.debug_str      0x00000000      0x4be
+ .debug_str     0x00000000      0x4be ./output/main.o
+                                0x1c9 (size before relaxing)
+ .debug_str     0x000004be      0x32f ./output/clock.o
+ .debug_str     0x000004be      0x2e9 ./output/gpio.o
+ .debug_str     0x000004be      0x16e ./output/delay.o
+ .debug_str     0x000004be      0x1af ./output/startup_Stm32f4.o
+ .debug_str     0x000004be       0xa3 ./output/it.o
 
 .comment        0x00000000       0x45
  .comment       0x00000000       0x45 ./output/main.o
@@ -227,6 +237,7 @@ LOAD linker stubs
  .comment       0x00000045       0x46 ./output/gpio.o
  .comment       0x00000045       0x46 ./output/delay.o
  .comment       0x00000045       0x46 ./output/startup_Stm32f4.o
+ .comment       0x00000045       0x46 ./output/it.o
 
 .ARM.attributes
                 0x00000000       0x2e
@@ -240,10 +251,13 @@ LOAD linker stubs
                 0x0000008a       0x2e ./output/delay.o
  .ARM.attributes
                 0x000000b8       0x2e ./output/startup_Stm32f4.o
+ .ARM.attributes
+                0x000000e6       0x2e ./output/it.o
 
-.debug_frame    0x00000000      0x1c0
+.debug_frame    0x00000000      0x1f0
  .debug_frame   0x00000000       0x30 ./output/main.o
  .debug_frame   0x00000030       0x3c ./output/clock.o
  .debug_frame   0x0000006c       0xd0 ./output/gpio.o
  .debug_frame   0x0000013c       0x38 ./output/delay.o
  .debug_frame   0x00000174       0x4c ./output/startup_Stm32f4.o
+ .debug_frame   0x000001c0       0x30 ./output/it.o

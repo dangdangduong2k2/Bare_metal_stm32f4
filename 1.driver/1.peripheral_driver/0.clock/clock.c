@@ -22,7 +22,6 @@ void ClockInit(uint8_t SystemClockSource,
     {
         RCC->CR |= 1<<16;  
         while (!(RCC->CR & (1<<17)));
-   
     }  
     /*Power CLock On*/
     RCC->APB1ENR |= 1<<28;
