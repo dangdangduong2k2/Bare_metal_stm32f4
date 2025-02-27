@@ -1,6 +1,7 @@
 #include "clock.h"
 uint32_t SystemClock;
 __IO uint32_t uwTick;
+
 void ClockInit(uint8_t SystemClockSource,
                 uint8_t AHB,
                 uint8_t APB1,
@@ -16,7 +17,6 @@ void ClockInit(uint8_t SystemClockSource,
     {
         RCC->CR |= 1<<0;  
         while (!(RCC->CR & (1<<1)));
-       
     }
     else if(ClockInputPLL==HSE || SystemClockSource == HSE)
     {
@@ -42,6 +42,7 @@ void ClockInit(uint8_t SystemClockSource,
     }
     else if(ClockInputPLL==HSE)
     {
+        /*PLL use HSE or HSE*/
         RCC->PLLCFGR |= (1<<22);
     }  
     /*PLL On*/
@@ -80,11 +81,11 @@ void ClockInit(uint8_t SystemClockSource,
         {
             // Calculate PLL output clock
             if (ClockInputPLL == HSI) 
-            { // If PLL source is HSI
+            {   // If PLL source is HSI
                 PLLClock = HSI_FREQ;
             }
             else if (ClockInputPLL == HSE) 
-            { // If PLL source is HSE
+            {   // If PLL source is HSE
                 PLLClock = HSE_FREQ;
             }
             // Calculate PLL clock before division by PLLP

@@ -42,7 +42,7 @@
 // 111: AHB clock divided by 16
 #define APB2DIV1    0u
 #define APB2DIV2    4u
-#define APB2DIV4    5u
+#define APB2DIV4    5u  
 #define APB2DIV8    6u
 #define APB2DIV16   7u
 // 0xx: AHB clock not divided
@@ -59,6 +59,7 @@
 // 10: PLLP = 6
 // 11: PLLP = 8
 extern uint32_t SystemClock;
+
 extern __IO uint32_t uwTick;
 void ClockInit(uint8_t SystemClockSource,
                 uint8_t AHB,

@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "cwd": "${workspaceRoot}",
             "executable": "./3.tool/output/stm32_f4.elf",
@@ -18,8 +19,11 @@
             ],
             "searchDir": [],
             "runToEntryPoint": "main",
-            "showDevDebugOutput": "none"
+            "showDevDebugOutput": "none",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 10 // Set to maximum value
+            } // Enable Cortex Live Watch
         }
-       
     ]
 }

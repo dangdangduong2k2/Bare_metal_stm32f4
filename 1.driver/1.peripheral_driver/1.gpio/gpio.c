@@ -91,8 +91,42 @@ void GpioInitITinput(GPIO_TypeDef *GPIOx,
     {
         Priority=15;
     }
-    NVIC->IP[10] |= (Priority<<4);
-    NVIC->ISER[0] |= (1<<10);
+    if(Line==0)
+    {
+        NVIC->IP[6] |= (Priority<<4);
+        NVIC->ISER[0] |= (1<<6);
+    }
+    else if(Line==1)
+    {
+        NVIC->IP[7] |= (Priority<<4);
+        NVIC->ISER[0] |= (1<<7);
+    }
+    else if(Line==2)
+    {
+        NVIC->IP[8] |= (Priority<<4);
+        NVIC->ISER[1] |= (1<<0);
+    }
+    else if(Line==3)
+    {
+        NVIC->IP[9] |= (Priority<<4);
+        NVIC->ISER[1] |= (1<<1);
+    }
+    else if(Line==4)
+    {
+        NVIC->IP[10] |= (Priority<<4);
+        NVIC->ISER[1] |= (1<<2);
+    }
+    else if(5<=Line<=9)
+    {
+        NVIC->IP[23] |= (Priority<<4);
+        NVIC->ISER[2] |= (1<<0);
+    }
+    else if(10<=Line<=15)
+    {
+        NVIC->IP[40] |= (Priority<<4);
+        NVIC->ISER[40] |= (1<<10);
+    }
+    __asm__("cpsie i");
 }
 
 void GpioWritePin(GPIO_TypeDef *GPIOx,

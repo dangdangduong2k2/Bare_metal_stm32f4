@@ -48,8 +48,7 @@ build: $(OBJ_FILES) $(LINKER)
 	$(CC) $(CC_OPT) -c $< -o $(OUTPUT_DIR)/$@ 
 
 upload: 
-	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -p "$(OUTPUT_DIR)/$(PRO_NAME).hex" 0x08000000
-	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -rst
+	$(PRO_DIR)/ST_LINK_Utility/ST-LINK_CLI.exe -p "$(OUTPUT_DIR)/$(PRO_NAME).hex" 0x08000000 -Rst
 	@echo "------------------flash done-----------------"
 
 # BL: clear $(OBJ_FILES) $(LINKER)
