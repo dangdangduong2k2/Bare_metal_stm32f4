@@ -21,6 +21,21 @@
 #define SysTick_BASE        (SCS_BASE +  0x0010UL)                    /*!< SysTick Base Address */
 #define NVIC_BASE           (SCS_BASE +  0x0100UL)                    /*!< NVIC Base Address */
 #define SCB_BASE            (SCS_BASE +  0x0D00UL)                    /*!< System Control Block Base Address */
+
+
+/*Systemtick block*/
+typedef struct 
+{
+  __IOM uint32_t CTRL;                   /*!< Offset: 0x000 (R/W)  SysTick Control and Status Register */
+  __IOM uint32_t LOAD;                   /*!< Offset: 0x004 (R/W)  SysTick Reload Value Register       */
+  __IOM uint32_t VAL;                    /*!< Offset: 0x008 (R/W)  SysTick Current Value Register      */
+  __IM  uint32_t CALIB;                  /*!< Offset: 0x00C (R/ )  SysTick Calibration Register        */
+} SysTick_Type;
+#define SysTick_BASE                (SCS_BASE +  0x0010UL)
+#define STK                         ((SysTick_Type*) SysTick_BASE)
+
+
+
 /*Power block*/
 typedef struct
 {
@@ -156,35 +171,6 @@ typedef struct
 #define GPIOG                      ((GPIO_TypeDef *) BASE_ADDR_GPIOG)
 #define GPIOH                      ((GPIO_TypeDef *) BASE_ADDR_GPIOH)
 #define GPIOI                      ((GPIO_TypeDef *) BASE_ADDR_GPIOI)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #endif 

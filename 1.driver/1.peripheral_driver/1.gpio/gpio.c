@@ -59,7 +59,6 @@ void GpioInitInput(GPIO_TypeDef *GPIOx,
 void GpioInitITinput(GPIO_TypeDef *GPIOx,
                     uint8_t Pin,
                     uint8_t Pullmode,
-                    uint8_t Line, 
                     uint8_t TrigerMode,
                     uint8_t Priority)
 {
@@ -67,21 +66,21 @@ void GpioInitITinput(GPIO_TypeDef *GPIOx,
     GPIOx->MODER   |= INPUT    << (Pin*2);
     GPIOx->PUPDR   |= Pullmode << (Pin*2);
     //enable exti
-    EXTI->IMR |= (1<<Line);
+    EXTI->IMR |= (1<<Pin);
     //system alow exti
     switch ((uint32_t)GPIOx)
     {
         case (uint32_t)GPIOA:
-            SYSCFG->EXTICR[Line / 4]|=(0<<Line); 
+            SYSCFG->EXTICR[Pin / 4]|=(0<<Pin); 
             break;
         case (uint32_t)GPIOB:
-            SYSCFG->EXTICR[Line / 4]|=(1<<Line); 
+            SYSCFG->EXTICR[Pin / 4]|=(1<<Pin); 
             break;
         case (uint32_t)GPIOC:
-            SYSCFG->EXTICR[Line / 4]|=(2<<Line); 
+            SYSCFG->EXTICR[Pin / 4]|=(2<<Pin); 
             break;
         case (uint32_t)GPIOH:
-            SYSCFG->EXTICR[Line / 4]|=(7<<Line); 
+            SYSCFG->EXTICR[Pin / 4]|=(7<<Pin); 
             break;
         default:
             break;
@@ -91,37 +90,37 @@ void GpioInitITinput(GPIO_TypeDef *GPIOx,
     {
         Priority=15;
     }
-    if(Line==0)
+    if(Pin==0)
     {
         NVIC->IP[6] |= (Priority<<4);
         NVIC->ISER[0] |= (1<<6);
     }
-    else if(Line==1)
+    else if(Pin==1)
     {
         NVIC->IP[7] |= (Priority<<4);
         NVIC->ISER[0] |= (1<<7);
     }
-    else if(Line==2)
+    else if(Pin==2)
     {
         NVIC->IP[8] |= (Priority<<4);
         NVIC->ISER[1] |= (1<<0);
     }
-    else if(Line==3)
+    else if(Pin==3)
     {
         NVIC->IP[9] |= (Priority<<4);
         NVIC->ISER[1] |= (1<<1);
     }
-    else if(Line==4)
+    else if(Pin==4)
     {
         NVIC->IP[10] |= (Priority<<4);
         NVIC->ISER[1] |= (1<<2);
     }
-    else if(5<=Line<=9)
+    else if(5<=Pin<=9)
     {
         NVIC->IP[23] |= (Priority<<4);
         NVIC->ISER[2] |= (1<<0);
     }
-    else if(10<=Line<=15)
+    else if(10<=Pin<=15)
     {
         NVIC->IP[40] |= (Priority<<4);
         NVIC->ISER[40] |= (1<<10);

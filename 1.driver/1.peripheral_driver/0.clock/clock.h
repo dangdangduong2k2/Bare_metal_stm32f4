@@ -1,6 +1,6 @@
 #ifndef __CLOCK_H__
 #define __CLOCK_H__
-#include "../hw_stm32f407vet6.h"
+#include "../../../2.system/hw_stm32f407vet6.h"
 
 #define HSI_FREQ          16000000   // Tần số HSI (16 MHz)
 #define HSE_FREQ          8000000    // Tần số HSE (8 MHz)
@@ -60,7 +60,7 @@
 // 11: PLLP = 8
 extern uint32_t SystemClock;
 
-extern __IO uint32_t uwTick;
+extern __IO uint32_t SysTick;
 void ClockInit(uint8_t SystemClockSource,
                 uint8_t AHB,
                 uint8_t APB1,
@@ -70,5 +70,8 @@ void ClockInit(uint8_t SystemClockSource,
                 uint16_t PLLM,
                 uint16_t PLLN,
                 uint16_t PLLP);
+void Systick_delay_ms(uint32_t delay);
+void Systick_init(void);
 
-#endif 
+
+#endif
