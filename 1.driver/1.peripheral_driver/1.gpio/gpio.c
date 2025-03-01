@@ -84,9 +84,9 @@ void GpioInitITinput(GPIO_TypeDef *GPIOx,
     EXTI->FTSR |= (1 << 4); // Không kích hoạt cạnh xuống (Falling edge)
 
     // 5. Bật NVIC cho EXTI4
-    NVIC->ISER[0] |= (1 << 10); // Bật ngắt EXTI4 (IRQ số 10)
-    NVIC->IP[10] = (15 << 4);    // Đặt mức ưu tiên là 2 (dịch 4 bit trái)
-/*
+    NVIC->ISER[0] |= (1 << 10); // 0 is register number, <<10 is IP in vector table
+    NVIC->IP[10] = (15 << 4);  //[10] IP in vector table
+/*  
     if(15<Priority)
     {
         Priority=15;
