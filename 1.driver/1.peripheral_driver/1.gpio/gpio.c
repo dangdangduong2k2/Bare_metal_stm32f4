@@ -62,31 +62,76 @@ void GpioInitITinput(GPIO_TypeDef *GPIOx,
                     uint8_t TrigerMode,
                     uint8_t Priority)
 {
-    GpioEnable(GPIOx);
-    GPIOx->MODER   |= INPUT    << (Pin*2);
-    GPIOx->PUPDR   |= Pullmode << (Pin*2);
-
-    //enable syscfg
+    //Config GPIO
+    GpioInitInput(GPIOx, Pin, Pullmode);
     // Enable SYSCFG clock
     RCC->APB2ENR |= (1 << 14);
- // Bật clock SYSCFG
 
-    // 2. Cấu hình PE4 làm input với pull-up
-   
+    // Scan IO port to get GPIO_bit_value
+    uint8_t GPIO_bit_value = 0xFF;
+    switch ((uint32_t)GPIOx)
+    {
+        case (uint32_t)GPIOA:
+            GPIO_bit_value = 0;
+            break;
+        case (uint32_t)GPIOB:
+            GPIO_bit_value = 1;
+            break;
+        case (uint32_t)GPIOC:
+            GPIO_bit_value = 2;
+            break;  
+        case (uint32_t)GPIOD:
+            GPIO_bit_value = 3; 
+            break;
+        case (uint32_t)GPIOE:   
+            GPIO_bit_value = 4;
+            break;
+        case (uint32_t)GPIOF:
+            GPIO_bit_value = 5;
+            break;
+        case (uint32_t)GPIOG:
+            GPIO_bit_value = 6;
+            break;
+        case (uint32_t)GPIOH:
+            GPIO_bit_value = 7;
+            break;
+        case (uint32_t)GPIOI:
+            GPIO_bit_value = 8;
+            break;
+        case (uint32_t)GPIOJ:
+            GPIO_bit_value = 9;
+            break;
+        case (uint32_t)GPIOK:
+            GPIO_bit_value = 10;
+            break;
+        default:
+            break;
+    }
+    // set bit register follow GPIO_bit_value
+    // set bit register follow GPIO_bit_value
+    SYSCFG->EXTICR[Pin / 4] &= ~(0xF << (Pin % 4) * 4); // clear 4 bit pin in register
+    SYSCFG->EXTICR[Pin / 4] |= (GPIO_bit_value << (Pin % 4) * 4); // set 4 bit pin in register
 
-    // 3. Cấu hình EXTI4 kết nối với PE4
-    SYSCFG->EXTICR[1] &= ~(0xF << (0 * 4)); // Xóa cấu hình EXTI4
-    SYSCFG->EXTICR[1] |= (4 << (0 * 4));    // Chọn GPIOE cho EXTI4
-
-    // 4. Cấu hình EXTI4 kích hoạt cạnh lên
-    EXTI->IMR  |= (1 << 4);  // Bật ngắt cho EXTI4
-    EXTI->RTSR &= ~(1 << 4);  // Kích hoạt cạnh lên (Rising edge)
-    EXTI->FTSR |= (1 << 4); // Không kích hoạt cạnh xuống (Falling edge)
-
-    // 5. Bật NVIC cho EXTI4
-    NVIC->ISER[0] |= (1 << 10); // 0 is register number, <<10 is IP in vector table
-    NVIC->IP[10] = (15 << 4);  //[10] IP in vector table
-/*  
+    // enable interrupt 
+    EXTI->IMR  |= (1 << Pin);  
+    switch (TrigerMode)
+    {
+        case RISING:
+            EXTI->RTSR |=  (1 << Pin);  // Kích hoạt cạnh lên (Rising edge)    
+            EXTI->FTSR &= ~(1 << Pin); // Không kích hoạt cạnh xuống (Falling edge)
+            break;
+        case FALLLING:
+            EXTI->FTSR &= ~(1 << Pin);  // Kích hoạt cạnh xuống (Falling edge)
+            EXTI->RTSR |=  (1 << Pin); // Không kích hoạt cạnh lên (Rising edge)
+            break;
+        case RISINGFALLING:
+            EXTI->RTSR |=  (1 << Pin);  // Kích hoạt cạnh lên (Rising edge)
+            EXTI->FTSR |=  (1 << Pin);  // Kích hoạt cạnh xuống (Falling edge)
+            break;
+        default:
+            break;
+    }
+    // Set priority
     if(15<Priority)
     {
         Priority=15;
@@ -95,100 +140,75 @@ void GpioInitITinput(GPIO_TypeDef *GPIOx,
     {
         Priority=0;
     }
-
     switch (Pin)
     {
         case GPIO_PIN_0:
-            NVIC->IP[0] |= (Priority<<Pin);
+            NVIC->IP[6] |= (Priority<<4);
             NVIC->ISER[0] |= (1<<6);
             break;
         case GPIO_PIN_1:
-            NVIC->IP[0] |= (Priority<<Pin);
+            NVIC->IP[7] |= (Priority<<4);
             NVIC->ISER[0] |= (1<<7);
             break;
         case GPIO_PIN_2:    
-            NVIC->IP[0] |= (Priority<<Pin);
-            NVIC->ISER[1] |= (1<<0);
+            NVIC->IP[8] |= (Priority<<4);
+            NVIC->ISER[0] |= (1<<8);
             break;
         case GPIO_PIN_3:
-            NVIC->IP[0] |= (Priority<<Pin);
-            NVIC->ISER[1] |= (1<<1);
+            NVIC->IP[9] |= (Priority<<4);
+            NVIC->ISER[0] |= (1<<9);
             break;
         case GPIO_PIN_4:
-            NVIC->IP[1] |= (1<<0);
-            NVIC->ISER[1] |= (1<<2);
+            NVIC->IP[10] |= (Priority<<4);
+            NVIC->ISER[0] |= (1<<10);
             break;
-        case GPIO_PIN_5 ... GPIO_PIN_9:
+        case GPIO_PIN_5:
             NVIC->IP[23] |= (Priority<<4);
-            NVIC->ISER[2] |= (1<<0);
+            NVIC->ISER[0] |= (1<<23);
             break;
-        case GPIO_PIN_10 ... GPIO_PIN_15:
+        case GPIO_PIN_6:
+            NVIC->IP[23] |= (Priority<<4);
+            NVIC->ISER[0] |= (1<<23);
+            break;
+        case GPIO_PIN_7:
+            NVIC->IP[23] |= (Priority<<4);  
+            NVIC->ISER[0] |= (1<<23);
+            break;
+        case GPIO_PIN_8:
+            NVIC->IP[23] |= (Priority<<4);
+            NVIC->ISER[0] |= (1<<23);
+            break;
+        case GPIO_PIN_9:
+            NVIC->IP[23] |= (Priority<<4);
+            NVIC->ISER[0] |= (1<<23);
+            break;
+        case GPIO_PIN_10:
             NVIC->IP[40] |= (Priority<<4);
-            NVIC->ISER[40] |= (1<<10);
-            break;
-        default:
-            break;
-    }
-
-
-
-    //system alow exti
-    switch ((uint32_t)GPIOx)
-    {
-        case (uint32_t)GPIOA:
-            SYSCFG->EXTICR[Pin / 4]|=(0<<((Pin % 4) * 4)); 
-            break;
-        case (uint32_t)GPIOB:
-            SYSCFG->EXTICR[Pin / 4]|=(1<<((Pin % 4) * 4)); 
-            break;
-        case (uint32_t)GPIOC:
-            SYSCFG->EXTICR[Pin / 4]|=(2<<((Pin % 4) * 4)); 
-            break;
-        case (uint32_t)GPIOD:
-            SYSCFG->EXTICR[Pin / 4]|=(3<<((Pin % 4) * 4)); 
-            break;
-        case (uint32_t)GPIOE:
-            SYSCFG->EXTICR[1] |= (4<<0); 
-            break;
-        case (uint32_t)GPIOF:   
-            SYSCFG->EXTICR[Pin / 4]|=(5<<((Pin % 4) * 4)); 
-            break;
-        case (uint32_t)GPIOG:
-            SYSCFG->EXTICR[Pin / 4]|=(6<<((Pin % 4) * 4)); 
+            NVIC->ISER[1] |= (1<<8);
             break;  
-        case (uint32_t)GPIOH:
-            SYSCFG->EXTICR[Pin / 4]|=(7<<((Pin % 4) * 4)); 
+        case GPIO_PIN_11:
+            NVIC->IP[40] |= (Priority<<4);  
+            NVIC->ISER[1] |= (1<<9);
+            break;  
+        case GPIO_PIN_12:   
+            NVIC->IP[40] |= (Priority<<4);
+            NVIC->ISER[1] |= (1<<10);
             break;
-        case (uint32_t)GPIOI:
-            SYSCFG->EXTICR[Pin / 4]|=(8<<((Pin % 4) * 4)); 
+        case GPIO_PIN_13:
+            NVIC->IP[40] |= (Priority<<4);
+            NVIC->ISER[1] |= (1<<11);
             break;
-        case (uint32_t)GPIOJ:
-            SYSCFG->EXTICR[Pin / 4]|=(9<<((Pin % 4) * 4));
+        case GPIO_PIN_14:
+            NVIC->IP[40] |= (Priority<<4);
+            NVIC->ISER[1] |= (1<<12);
             break;
-        case (uint32_t)GPIOK:
-            SYSCFG->EXTICR[Pin / 4]|=(10<<((Pin % 4) * 4));
-            break; 
-        default:
-            break;
-    }
-
-    
-    switch (TrigerMode)
-    {
-        case RISING:
-            EXTI->RTSR |= (1<<Pin);
-            break;
-        case FALLLING:
-            EXTI->FTSR |= (1<<Pin);
-            break;
-        case RISINGFALLING:
-            EXTI->RTSR |= (1<<Pin);
-            EXTI->FTSR |= (1<<Pin);
+        case GPIO_PIN_15:
+            NVIC->IP[40] |= (Priority<<4);
+            NVIC->ISER[1] |= (1<<13);
             break;
         default:
             break;
     }
-*/
     __asm__("cpsie i");
 }
 

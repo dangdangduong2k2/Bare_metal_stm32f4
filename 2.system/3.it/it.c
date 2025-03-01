@@ -25,7 +25,7 @@ void EXTI2_IRQHandler(void)
 void EXTI3_IRQHandler(void)
 {
     //start to do code
-    
+    GpioWritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
     //end to do code
     clr_line3_flag();
 }
@@ -74,7 +74,7 @@ void EXTI9_5_IRQHandler(void)
     if(line9_is_pending())
     {
         //start to do code
-
+        
         //end to do code
         clr_line9_flag();
     }
