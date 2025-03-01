@@ -1,6 +1,6 @@
 #ifndef __GPIO_H__
 #define __GPIO_H__
-#include "../../../2.system/hw_stm32f407vet6.h"
+#include "hw_stm32f407vet6.h"
 
 
 
