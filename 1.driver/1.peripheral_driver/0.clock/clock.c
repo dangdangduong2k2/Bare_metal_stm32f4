@@ -10,16 +10,33 @@ void ClockInit(uint8_t SystemClockSource,
                 uint16_t PLLN,
                 uint16_t PLLP)
 {
+    uint32_t start_tick = 0;
     /*HSE or HSI on*/
     if(ClockInputPLL==HSI || SystemClockSource == HSI)
     {
         RCC->CR |= 1<<0;  
-        while (!(RCC->CR & (1<<1)));
+        start_tick = Get_systick();
+        while (!(RCC->CR & (1<<1)))
+        {
+            if(Get_systick()-start_tick > 1000)
+            {
+                start_tick = 0;
+                break;
+            }
+        }
     }
     else if(ClockInputPLL==HSE || SystemClockSource == HSE)
-    {
+    {        
         RCC->CR |= 1<<16;  
-        while (!(RCC->CR & (1<<17)));
+        start_tick = Get_systick();
+        while (!(RCC->CR & (1<<17)))
+        {
+            if(Get_systick()-start_tick > 1000)
+            {
+                start_tick = 0;
+                break;
+            }
+        }
     }  
     /*Power CLock On*/
     RCC->APB1ENR |= 1<<28;
@@ -51,11 +68,28 @@ void ClockInit(uint8_t SystemClockSource,
     else if (PLLEnable==PLLENABLE)
     {
         RCC->CR |= (1<<24);
-        while (!(RCC->CR & (1<<25))); //wait flag
+        start_tick = Get_systick();
+        while (!(RCC->CR & (1<<25)))//wait flag
+        {
+            if(Get_systick()-start_tick > 1000)
+            {
+                start_tick = 0;
+                break;
+            }
+        }
+
     }
     /*PLL to sysclk*/
     RCC->CFGR |= (SystemClockSource<<0);
-    while (!(RCC->CFGR & (SystemClockSource<<2))); //wait flag
+    start_tick = Get_systick();
+    while (!(RCC->CFGR & (SystemClockSource<<2))) //wait flag
+    {
+        if(Get_systick()-start_tick > 1000)
+        {
+            start_tick = 0;
+            break;
+        }
+    }
 
     SystemClock = 0;           // System clock (final system clock)
     uint32_t PLLClock = 0;     // Clock from PLL
