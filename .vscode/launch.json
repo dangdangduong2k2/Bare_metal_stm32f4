@@ -20,6 +20,7 @@
             "searchDir": [],
             "runToEntryPoint": "main",
             "showDevDebugOutput": "none",
+            "connectMode": "under-reset", // Connect under reset
             "liveWatch": {
                 "enabled": true,
                 "samplesPerSecond": 10 // Set to maximum value

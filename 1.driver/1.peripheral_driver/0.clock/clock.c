@@ -1,6 +1,5 @@
 #include "clock.h"
-uint32_t SystemClock;
-__IO uint32_t SysTick;
+
 
 void ClockInit(uint8_t SystemClockSource,
                 uint8_t AHB,
@@ -96,26 +95,8 @@ void ClockInit(uint8_t SystemClockSource,
             SystemClock = PLLClockOutput;
         }
     }
+    //re init systick
+    Systick_init();
 }
 
-void Systick_init(void)
-{
-    STK->CTRL &= ~(1<<0); // Disable systick
-    STK->CTRL |= (1<<2); // use system clock
-    STK->LOAD = 0x000000; // clear reload value
-    STK->VAL = 0x000000; // clear current value
-    STK->LOAD = (SystemClock / 1000) - 1; // 1ms
-    STK->CTRL |= (1<<0); // Enable systick    
-}
 
-void Systick_delay_ms(uint32_t delay)
-{
-    STK->VAL = 0x000000; // clear current value
-    SysTick=0;
-    while(delay)
-    {
-        while(!(STK->CTRL & (1<<16)));
-        delay--;
-        SysTick++;
-    }
-}

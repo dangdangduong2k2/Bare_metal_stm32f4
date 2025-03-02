@@ -179,13 +179,23 @@ typedef struct
 #define GPIOG                      ((GPIO_TypeDef *) BASE_ADDR_GPIOG)
 #define GPIOH                      ((GPIO_TypeDef *) BASE_ADDR_GPIOH)
 #define GPIOI                      ((GPIO_TypeDef *) BASE_ADDR_GPIOI)
-#define GPIOJ                      ((GPIO_TypeDef *) BASE_ADDR_GPIOJ)
-#define GPIOK                      ((GPIO_TypeDef *) BASE_ADDR_GPIOK)
+
 
 
                                       /* DEVICE_DRIVER DEFINE*/ 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
+/*Sys */
+#define SYS_TIMEOUT 0u
+#define SYS_OK      1u
+#define SYS_ERROR   2u
+extern uint32_t SystemClock;
+extern __IO uint32_t SysTick;
+void Systick_init(void);
+uint32_t Get_systick(void);
+void Sys_init(void);
+void Systick_delay_ms(uint32_t delay);
+
 
 /*Clock */
 #define HSI_FREQ          16000000   // Tần số HSI (16 MHz)
@@ -244,9 +254,8 @@ typedef struct
 // 01: PLLP = 4
 // 10: PLLP = 6
 // 11: PLLP = 8
-extern uint32_t SystemClock;
 
-extern __IO uint32_t SysTick;
+
 
 /* GPIO */
 #define INPUT             0u

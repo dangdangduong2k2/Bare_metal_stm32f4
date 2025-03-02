@@ -25,14 +25,14 @@ void EXTI2_IRQHandler(void)
 void EXTI3_IRQHandler(void)
 {
     //start to do code
-    GpioWritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+    //GpioWritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
     //end to do code
     clr_line3_flag();
 }
 void EXTI4_IRQHandler(void)
 {
     //start to do code
-    GpioWritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+    //GpioWritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
     //end to do code
     clr_line4_flag();
 }
@@ -129,4 +129,8 @@ void EXTI15_10_IRQHandler(void)
         //end to do code
         clr_line15_flag();
     }
+}
+void SysTick_Handler(void)
+{
+    SysTick++;
 }

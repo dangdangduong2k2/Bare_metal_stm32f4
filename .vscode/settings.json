@@ -3,7 +3,10 @@
     "cortex-debug.openocdPath": "C:/xpack-openocd-0.11.0-5/bin/openocd",
     "files.associations": {
         "clock.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "hw_stm32f407vet6.h": "c",
+        "peripheral_driver_handle.h": "c",
+        "gpio.h": "c"
     },
     "cortex-debug.variableUseNaturalFormat": true
 }

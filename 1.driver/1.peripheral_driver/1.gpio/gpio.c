@@ -98,12 +98,7 @@ void GpioInitITinput(GPIO_TypeDef *GPIOx,
         case (uint32_t)GPIOI:
             GPIO_bit_value = 8;
             break;
-        case (uint32_t)GPIOJ:
-            GPIO_bit_value = 9;
-            break;
-        case (uint32_t)GPIOK:
-            GPIO_bit_value = 10;
-            break;
+        
         default:
             break;
     }
