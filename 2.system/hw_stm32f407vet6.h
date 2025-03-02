@@ -196,7 +196,6 @@ uint32_t Get_systick(void);
 void Sys_init(void);
 void Systick_delay_ms(uint32_t delay);
 
-
 /*Clock */
 #define HSI_FREQ          16000000   // Tần số HSI (16 MHz)
 #define HSE_FREQ          8000000    // Tần số HSE (8 MHz)
