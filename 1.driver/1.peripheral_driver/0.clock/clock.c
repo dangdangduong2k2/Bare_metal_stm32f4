@@ -1,6 +1,5 @@
 #include "clock.h"
 
-
 void ClockInit(uint8_t SystemClockSource,
                 uint8_t AHB,
                 uint8_t APB1,
