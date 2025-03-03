@@ -13,8 +13,8 @@ int main(void)
     while (1)
     {
         GpioWritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-        Systick_delay_ms(100);
+        Systick_delay_ms(50);
         GpioWritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-        Systick_delay_ms(100);
+        Systick_delay_ms(50);
     }
 }

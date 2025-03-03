@@ -35,6 +35,7 @@ Linker script and memory map
                 0x0800080c                GpioInitITinput
                 0x08000d38                GpioWritePin
                 0x08000dae                GpioReadPin
+ .text          0x08000dd8        0x0 ./output/uart.o
  .text          0x08000dd8       0x44 ./output/delay.o
                 0x08000dd8                delay_ms
  .text          0x08000e1c       0x8c ./output/startup_Stm32f4.o
@@ -158,6 +159,7 @@ Linker script and memory map
  .data          0x20000000        0x0 ./output/it.o
  .data          0x20000000        0x0 ./output/clock.o
  .data          0x20000000        0x0 ./output/gpio.o
+ .data          0x20000000        0x0 ./output/uart.o
  .data          0x20000000        0x0 ./output/delay.o
  .data          0x20000000        0x0 ./output/startup_Stm32f4.o
  .data          0x20000000        0x0 ./output/system_handle.o
@@ -174,6 +176,7 @@ Linker script and memory map
  .bss           0x20000000        0x0 ./output/it.o
  .bss           0x20000000        0x0 ./output/clock.o
  .bss           0x20000000        0x0 ./output/gpio.o
+ .bss           0x20000000        0x0 ./output/uart.o
  .bss           0x20000000        0x0 ./output/delay.o
  .bss           0x20000000        0x0 ./output/startup_Stm32f4.o
  .bss           0x20000000        0x8 ./output/system_handle.o
@@ -186,6 +189,7 @@ LOAD ./output/main.o
 LOAD ./output/it.o
 LOAD ./output/clock.o
 LOAD ./output/gpio.o
+LOAD ./output/uart.o
 LOAD ./output/delay.o
 LOAD ./output/startup_Stm32f4.o
 LOAD ./output/system_handle.o
@@ -231,19 +235,21 @@ LOAD linker stubs
  .debug_line    0x000001b9      0x1cb ./output/it.o
  .debug_line    0x00000384      0x2e5 ./output/clock.o
  .debug_line    0x00000669      0x529 ./output/gpio.o
+ .debug_line    0x00000b92        0x0 ./output/uart.o
  .debug_line    0x00000b92      0x166 ./output/delay.o
  .debug_line    0x00000cf8      0x188 ./output/startup_Stm32f4.o
  .debug_line    0x00000e80      0x19a ./output/system_handle.o
 
-.debug_str      0x00000000      0x67f
- .debug_str     0x00000000      0x67f ./output/main.o
+.debug_str      0x00000000      0x6af
+ .debug_str     0x00000000      0x6af ./output/main.o
                                 0x1ff (size before relaxing)
- .debug_str     0x0000067f      0x1fd ./output/it.o
- .debug_str     0x0000067f      0x372 ./output/clock.o
- .debug_str     0x0000067f      0x3bc ./output/gpio.o
- .debug_str     0x0000067f      0x194 ./output/delay.o
- .debug_str     0x0000067f      0x1d5 ./output/startup_Stm32f4.o
- .debug_str     0x0000067f      0x1cb ./output/system_handle.o
+ .debug_str     0x000006af      0x1fd ./output/it.o
+ .debug_str     0x000006af      0x372 ./output/clock.o
+ .debug_str     0x000006af      0x3bc ./output/gpio.o
+ .debug_str     0x000006af       0xd0 ./output/uart.o
+ .debug_str     0x000006af      0x194 ./output/delay.o
+ .debug_str     0x000006af      0x1d5 ./output/startup_Stm32f4.o
+ .debug_str     0x000006af      0x1cb ./output/system_handle.o
 
 .comment        0x00000000       0x45
  .comment       0x00000000       0x45 ./output/main.o
@@ -251,6 +257,7 @@ LOAD linker stubs
  .comment       0x00000045       0x46 ./output/it.o
  .comment       0x00000045       0x46 ./output/clock.o
  .comment       0x00000045       0x46 ./output/gpio.o
+ .comment       0x00000045       0x46 ./output/uart.o
  .comment       0x00000045       0x46 ./output/delay.o
  .comment       0x00000045       0x46 ./output/startup_Stm32f4.o
  .comment       0x00000045       0x46 ./output/system_handle.o
@@ -266,11 +273,13 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000008a       0x2e ./output/gpio.o
  .ARM.attributes
-                0x000000b8       0x2e ./output/delay.o
+                0x000000b8       0x2e ./output/uart.o
  .ARM.attributes
-                0x000000e6       0x2e ./output/startup_Stm32f4.o
+                0x000000e6       0x2e ./output/delay.o
  .ARM.attributes
-                0x00000114       0x2e ./output/system_handle.o
+                0x00000114       0x2e ./output/startup_Stm32f4.o
+ .ARM.attributes
+                0x00000142       0x2e ./output/system_handle.o
 
 .debug_frame    0x00000000      0x384
  .debug_frame   0x00000000       0x30 ./output/main.o
